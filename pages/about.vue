@@ -54,7 +54,6 @@
 </template>
 <script lang="babel">
 import { mapGetters } from 'vuex'
-import metaMixin from '@/mixins'
 import trending from '@/components/aside-trending.vue'
 
 export default {
@@ -62,7 +61,6 @@ export default {
     async asyncData({store}) {
         await store.dispatch('frontend/article/getTrending')
     },
-    mixins: [metaMixin],
     components: {
         trending
     },

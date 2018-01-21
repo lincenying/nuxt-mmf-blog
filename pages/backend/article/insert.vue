@@ -29,12 +29,11 @@
 /* global postEditor */
 import { mapGetters } from 'vuex'
 import api from '~api'
-import checkAdmin from '@/mixins/check-admin'
 import aInput from '@/components/_input.vue'
 
 export default {
     name: 'backend-article-insert',
-    mixins: [checkAdmin],
+    middleware: 'admin',
     async asyncData({store, route}, config = { limit: 99 }) {
         config.all = 1
         await store.dispatch('global/category/getCategoryList', {
@@ -77,6 +76,9 @@ export default {
                 this.$router.push('/backend/article/list')
             }
         }
+    },
+    created() {
+        this.$store.commit('global/showBackendNav', true)
     },
     mounted() {
         // eslint-disable-next-line

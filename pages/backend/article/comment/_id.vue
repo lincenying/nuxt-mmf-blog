@@ -29,11 +29,10 @@
 <script lang="babel">
 import { mapGetters } from 'vuex'
 import api from '~api'
-import checkAdmin from '@/mixins/check-admin'
 
 export default {
     name: 'backend-article-comment',
-    mixins: [checkAdmin],
+    middleware: 'admin',
     async asyncData({store, route}, config = { page: 1 }) {
         config.all = 1
         config.id = route.params.id
@@ -71,6 +70,9 @@ export default {
                 this.$store.commit('global/comment/deleteComment', id)
             }
         }
+    },
+    created() {
+        this.$store.commit('global/showBackendNav', true)
     },
     mounted() {
 

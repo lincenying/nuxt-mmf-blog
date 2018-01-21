@@ -20,12 +20,11 @@
 <script lang="babel">
 import api from '~api'
 import { mapGetters } from 'vuex'
-import checkAdmin from '@/mixins/check-admin'
 import aInput from '@/components/_input.vue'
 
 export default {
     name: 'backend-category-modify',
-    mixins: [checkAdmin],
+    middleware: 'admin',
     async asyncData({store, route}) {
         await store.dispatch('global/category/getCategoryItem', {
             path: route.path,
@@ -65,6 +64,9 @@ export default {
                 this.$router.push('/backend/category/list')
             }
         }
+    },
+    created() {
+        this.$store.commit('global/showBackendNav', true)
     },
     mounted() {
         this.form.cate_name = this.item.data.cate_name

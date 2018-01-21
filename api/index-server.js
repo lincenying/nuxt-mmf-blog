@@ -2,7 +2,6 @@ import axios from 'axios'
 import qs from 'qs'
 import md5 from 'md5'
 import config from './config-server'
-console.log(config)
 // const SSR = global.__VUE_SSR_CONTEXT__
 // const SSRCookies = SSR.cookies || {}
 
@@ -21,14 +20,6 @@ export default {
         value = value || {}
         this.cookies = value
         this.api = axios.create({
-            baseURL: config.api,
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest',
-                cookie: parseCookie(value)
-            },
-            timeout: config.timeout,
-        })
-        console.log({
             baseURL: config.api,
             headers: {
                 'X-Requested-With': 'XMLHttpRequest',

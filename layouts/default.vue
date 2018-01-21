@@ -13,7 +13,7 @@
                 <nuxt :key="key"/>
             </div>
         </div>
-        <backend-menu v-if="!isLogin"></backend-menu>
+        <backend-menu v-if="global.showBackendNav"></backend-menu>
     </div>
 </div>
 </template>
@@ -36,7 +36,7 @@ export default {
         backendMenu,
     },
     data() {
-        return {}
+        return { }
     },
     computed: {
         ...mapGetters({
@@ -65,6 +65,6 @@ export default {
         handleClickHeaderBack() {
             this.$router.go(-1)
         },
-    }
+    },
 }
 </script>

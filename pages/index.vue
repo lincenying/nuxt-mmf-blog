@@ -22,7 +22,6 @@ import topicsItem from '@/components/topics-item.vue'
 import topicsItemNone from '@/components/topics-item-none.vue'
 import category from '@/components/aside-category.vue'
 import trending from '@/components/aside-trending.vue'
-import metaMixin from '@/mixins'
 
 export default {
     name: 'frontend-index',
@@ -34,7 +33,6 @@ export default {
             store.dispatch('frontend/article/getArticleList', { ...config, limit: 10, id, path: fullPath, key, by })
         ])
     },
-    mixins: [metaMixin],
     async beforeRouteUpdate(to, from, next) {
         const {query: {id, key, by}, fullPath} = to
         await this.$store.dispatch('frontend/article/getArticleList', { page: 1, limit: 10, id, path: fullPath, key, by })

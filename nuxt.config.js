@@ -19,14 +19,7 @@ module.exports = {
             }
         },
         extractCSS: true,
-        babel: {
-            plugins: [
-                [ "component", {
-                    "libraryName": "element-ui",
-                    "styleLibraryName": "theme-chalk"
-                }]
-            ]
-        }
+        babel: {}
     },
     cache: {
         max: 1000,
@@ -58,5 +51,8 @@ module.exports = {
         background_color: '#FFF',
         lang: 'zh-CN'
     },
-    plugins: ['~/plugins/element']
+    plugins: [{
+        src: '~/plugins/router',
+        ssr: false
+    }]
 }

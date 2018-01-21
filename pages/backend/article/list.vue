@@ -28,11 +28,10 @@
 <script lang="babel">
 import { mapGetters } from 'vuex'
 import api from '~api'
-import checkAdmin from '@/mixins/check-admin'
 
 export default {
     name: 'backend-article-list',
-    mixins: [checkAdmin],
+    middleware: 'admin',
     async asyncData({store, route}, config = { page: 1 }) {
         await store.dispatch('backend/article/getArticleList', {
             ...config,
@@ -68,6 +67,9 @@ export default {
                 this.$store.commit('backend/article/deleteArticle', id)
             }
         }
+    },
+    created() {
+        this.$store.commit('global/showBackendNav', true)
     },
     mounted() {
 

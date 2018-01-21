@@ -36,7 +36,6 @@
 
 <script lang="babel">
 import { mapGetters } from 'vuex'
-import metaMixin from '@/mixins'
 import actions from '@/components/item-actions.vue'
 import category from '@/components/aside-category.vue'
 import trending from '@/components/aside-trending.vue'
@@ -53,7 +52,6 @@ export default {
             store.dispatch(`frontend/article/getArticleItem`, { id, path })
         ])
     },
-    mixins: [metaMixin],
     beforeRouteUpdate(to, from, next) {
         if (to.path !== from.path) this.$options.asyncData({store: this.$store, route: to})
         next()

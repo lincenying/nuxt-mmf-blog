@@ -18,12 +18,11 @@
 
 <script lang="babel">
 import api from '~api'
-import checkAdmin from '@/mixins/check-admin'
 import aInput from '@/components/_input.vue'
 
 export default {
     name: 'backend-category-insert',
-    mixins: [checkAdmin],
+    middleware: 'admin',
     data() {
         return {
             form: {
@@ -54,6 +53,9 @@ export default {
                 this.$router.push('/backend/category/list')
             }
         }
+    },
+    created() {
+        this.$store.commit('global/showBackendNav', true)
     },
     head() {
         return {

@@ -27,11 +27,10 @@
 <script lang="babel">
 import { mapGetters } from 'vuex'
 import api from '~api'
-import checkAdmin from '@/mixins/check-admin'
 
 export default {
     name: 'backend-user-list',
-    mixins: [checkAdmin],
+    middleware: 'admin',
     async asyncData({store, route}, config = { page: 1 }) {
         await store.dispatch('backend/user/getUserList', {
             ...config,
@@ -67,6 +66,9 @@ export default {
                 this.$store.commit('backend/user/deleteUser', id)
             }
         }
+    },
+    created() {
+        this.$store.commit('global/showBackendNav', true)
     },
     mounted() {
 

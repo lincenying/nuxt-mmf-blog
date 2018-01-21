@@ -7,7 +7,8 @@ export const state = () => ({
     loading: false,
     cookies: {},
     showLoginModal: false,
-    showRegisterModal: false
+    showRegisterModal: false,
+    showBackendNav: false
 })
 
 export const actions = {
@@ -33,6 +34,9 @@ export const mutations = {
     },
     ['showRegisterModal'](state, payload) {
         state.showRegisterModal = payload
+    },
+    ['showBackendNav'](state, payload) {
+        state.showBackendNav = payload
     }
 }
 

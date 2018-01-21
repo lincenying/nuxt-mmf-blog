@@ -19,11 +19,10 @@
 
 <script lang="babel">
 import { mapGetters } from 'vuex'
-import checkAdmin from '@/mixins/check-admin'
 
 export default {
     name: 'backend-category-list',
-    mixins: [checkAdmin],
+    middleware: 'admin',
     async asyncData({store, route}, config = { limit: 99 }) {
         config.all = 1
         await store.dispatch('global/category/getCategoryList', {
@@ -35,6 +34,9 @@ export default {
         ...mapGetters({
             category: 'global/category/getCategoryList'
         })
+    },
+    created() {
+        this.$store.commit('global/showBackendNav', true)
     },
     mounted() {
 
