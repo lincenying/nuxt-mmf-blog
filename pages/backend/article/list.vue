@@ -33,7 +33,6 @@ export default {
     name: 'backend-article-list',
     middleware: 'admin',
     async asyncData({store, route}, config = { page: 1 }) {
-        await store.commit('global/showBackendNav', true)
         await store.dispatch('backend/article/getArticleList', {
             ...config,
             path: route.path

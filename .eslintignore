@@ -1,1 +1,3 @@
 build/*.js
+static/**/*.js
+.nuxt/**/*.js

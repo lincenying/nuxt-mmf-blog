@@ -30,7 +30,6 @@ export default {
     name: 'backend-user-modify',
     middleware: 'admin',
     async asyncData({store, route}) {
-        await store.commit('global/showBackendNav', true)
         await store.dispatch('backend/user/getUserItem', {
             id: route.params.id,
             path: route.path

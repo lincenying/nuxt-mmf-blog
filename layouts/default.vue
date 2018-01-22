@@ -13,7 +13,7 @@
                 <nuxt :key="key"/>
             </div>
         </div>
-        <backend-menu v-if="global.showBackendNav"></backend-menu>
+        <backend-menu v-if="!isLogin"></backend-menu>
     </div>
 </div>
 </template>

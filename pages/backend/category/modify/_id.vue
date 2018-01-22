@@ -26,7 +26,6 @@ export default {
     name: 'backend-category-modify',
     middleware: 'admin',
     async asyncData({store, route}) {
-        await store.commit('global/showBackendNav', true)
         await store.dispatch('global/category/getCategoryItem', {
             path: route.path,
             id: route.params.id

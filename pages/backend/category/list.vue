@@ -25,7 +25,6 @@ export default {
     middleware: 'admin',
     async asyncData({store, route}, config = { limit: 99 }) {
         config.all = 1
-        await store.commit('global/showBackendNav', true)
         await store.dispatch('global/category/getCategoryList', {
             ...config,
             path: route.path

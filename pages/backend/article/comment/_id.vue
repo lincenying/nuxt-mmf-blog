@@ -36,7 +36,6 @@ export default {
     async asyncData({store, route}, config = { page: 1 }) {
         config.all = 1
         config.id = route.params.id
-        await store.commit('global/showBackendNav', true)
         await store.dispatch('global/comment/getCommentList', {
             ...config,
             path: route.path
