@@ -76,5 +76,24 @@ module.exports = {
     }, {
         src: '~/plugins/router',
         ssr: false
-    }]
+    }],
+    router: {
+        extendRoutes (routes, resolve) {
+            routes.push({
+                name: 'trending',
+                path: '/trending/:by',
+                component: resolve(__dirname, 'pages/index.vue')
+            })
+            routes.push({
+                name: 'category',
+                path: '/category/:id',
+                component: resolve(__dirname, 'pages/index.vue')
+            })
+            routes.push({
+                name: 'search',
+                path: '/search/:key',
+                component: resolve(__dirname, 'pages/index.vue')
+            })
+        }
+    }
 }

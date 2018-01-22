@@ -139,6 +139,21 @@ export function createRouter () {
 			path: "/article/:id?",
 			component: _51f2df8c,
 			name: "article-id"
+		},
+		{
+			path: "/trending/:by",
+			component: _391b10fd,
+			name: "trending"
+		},
+		{
+			path: "/category/:id",
+			component: _391b10fd,
+			name: "category"
+		},
+		{
+			path: "/search/:key",
+			component: _391b10fd,
+			name: "search"
 		}
     ],
     

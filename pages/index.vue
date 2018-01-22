@@ -26,17 +26,12 @@ import trending from '@/components/aside-trending.vue'
 export default {
     name: 'frontend-index',
     async asyncData({store, route}, config = { page: 1}) {
-        const {query: {id, key, by}, fullPath} = route
+        const {params: {id, key, by}, fullPath} = route
         await Promise.all([
             store.dispatch('global/category/getCategoryList'),
             store.dispatch('frontend/article/getTrending'),
             store.dispatch('frontend/article/getArticleList', { ...config, limit: 10, id, path: fullPath, key, by })
         ])
-    },
-    async beforeRouteUpdate(to, from, next) {
-        const {query: {id, key, by}, fullPath} = to
-        await this.$store.dispatch('frontend/article/getArticleList', { page: 1, limit: 10, id, path: fullPath, key, by })
-        next()
     },
     components: {
         topicsItem, topicsItemNone, category, trending
@@ -55,7 +50,7 @@ export default {
     },
     head() {
         var title = 'M.M.F 小屋'
-        const {id, key, by} = this.$route.query
+        const {id, key, by} = this.$route.params
         if (id) {
             const obj = this.category.find(item => item._id === id)
             if (obj) {

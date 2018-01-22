@@ -5,7 +5,7 @@
                 <router-link to="/" active-class="current" exact class="logo-link"><i class="icon icon-nav-logo"></i><span class="hidden">M.M.F 小屋</span></router-link>
                 <div class="main-nav">
                     <router-link to="/" active-class="current" exact class="nav-link"><i class="icon icon-nav-home"></i><span class="text">首页</span></router-link>
-                    <router-link to="/?by=visit" active-class="current" class="nav-link"><i class="icon icon-nav-explore"></i><span class="text">热门</span></router-link>
+                    <router-link to="/trending/visit" active-class="current" class="nav-link"><i class="icon icon-nav-explore"></i><span class="text">热门</span></router-link>
                     <router-link to="/about" active-class="current" class="nav-link"><i class="icon icon-nav-features"></i><span class="text">关于</span></router-link>
                 </div>
             </div>
