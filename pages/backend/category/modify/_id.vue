@@ -26,6 +26,7 @@ export default {
     name: 'backend-category-modify',
     middleware: 'admin',
     async asyncData({store, route}) {
+        await store.commit('global/showBackendNav', true)
         await store.dispatch('global/category/getCategoryItem', {
             path: route.path,
             id: route.params.id
@@ -64,9 +65,6 @@ export default {
                 this.$router.push('/backend/category/list')
             }
         }
-    },
-    created() {
-        this.$store.commit('global/showBackendNav', true)
     },
     mounted() {
         this.form.cate_name = this.item.data.cate_name

@@ -26,7 +26,7 @@ const config = require('./nuxt.config.js')
 config.dev = !(process.env.NODE_ENV === 'production')
 
 // 引用 esj 模板引擎
-app.set('views', path.join(__dirname, 'dist'))
+app.set('views', path.join(__dirname, 'tpl'))
 app.engine('.html', require('ejs').__express)
 app.set('view engine', 'ejs')
 

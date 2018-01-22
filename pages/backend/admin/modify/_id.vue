@@ -32,6 +32,7 @@ export default {
     name: 'backend-admin-modify',
     middleware: 'admin',
     async asyncData({store, route}) {
+        await store.commit('global/showBackendNav', true)
         await store.dispatch('backend/admin/getAdminItem', {
             id: route.params.id,
             path: route.path
@@ -72,9 +73,6 @@ export default {
                 this.$router.push('/backend/admin/list')
             }
         }
-    },
-    created() {
-        this.$store.commit('global/showBackendNav', true)
     },
     mounted() {
         this.form.username = this.item.data.username

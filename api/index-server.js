@@ -2,8 +2,6 @@ import axios from 'axios'
 import qs from 'qs'
 import md5 from 'md5'
 import config from './config-server'
-// const SSR = global.__VUE_SSR_CONTEXT__
-// const SSRCookies = SSR.cookies || {}
 
 const parseCookie = cookies => {
     let cookie = ''
@@ -17,13 +15,13 @@ export default {
     api: null,
     cookies: {},
     setCookies(value) {
-        value = value || {}
+        value = value || ''
         this.cookies = value
         this.api = axios.create({
             baseURL: config.api,
             headers: {
                 'X-Requested-With': 'XMLHttpRequest',
-                cookie: parseCookie(value)
+                cookie: value
             },
             timeout: config.timeout,
         })
@@ -34,6 +32,7 @@ export default {
         const username = cookies.username || ''
         const key = md5(url + JSON.stringify(data) + username)
         if (config.cached && data.cache && config.cached.has(key)) {
+            console.log('命中缓存')
             return Promise.resolve(config.cached.get(key))
         }
         return this.api({
@@ -54,6 +53,7 @@ export default {
         const username = cookies.username || ''
         const key = md5(url + JSON.stringify(params) + username)
         if (config.cached && params.cache && config.cached.has(key)) {
+            console.log('命中缓存')
             return Promise.resolve(config.cached.get(key))
         }
         return this.api({
@@ -61,6 +61,7 @@ export default {
             url,
             params,
         }).then(res => {
+            console.log(res)
             if (config.cached && params.cache) config.cached.set(key, res)
             return res
         })

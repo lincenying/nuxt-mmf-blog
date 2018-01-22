@@ -16,6 +16,8 @@ import '../node_modules/toastr/build/toastr.css'
 
 let layouts = {
 
+  "_blog": () => import('../layouts/blog.vue'  /* webpackChunkName: "layouts/blog" */).then(m => m.default || m),
+
   "_default": () => import('../layouts/default.vue'  /* webpackChunkName: "layouts/default" */).then(m => m.default || m)
 
 }
@@ -23,7 +25,7 @@ let layouts = {
 let resolvedLayouts = {}
 
 export default {
-  head: {"meta":[],"link":[{"rel":"manifest","href":"\u002F_nuxt\u002Fmanifest.cc2203f2.json"}],"style":[],"script":[]},
+  head: {"link":[{"rel":"stylesheet","href":"\u002Feditor.md\u002Fcss\u002Feditormd.css"},{"rel":"manifest","href":"\u002F_nuxt\u002Fmanifest.cc2203f2.json"}],"script":[{"src":"\u002F\u002Fapps.bdimg.com\u002Flibs\u002Fjquery\u002F2.1.4\u002Fjquery.min.js"},{"src":"\u002Feditor.md\u002Feditormd.min.js"}],"meta":[],"style":[]},
   render(h, props) {
     const loadingEl = h('nuxt-loading', { ref: 'loading' })
     const layoutEl = h(this.layout || 'nuxt')

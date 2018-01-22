@@ -37,6 +37,7 @@ export default {
     middleware: 'admin',
     async asyncData({store, route}, config = { limit: 99 }) {
         config.all = 1
+        await store.commit('global/showBackendNav', true)
         await store.dispatch('global/category/getCategoryList', {
             ...config,
             path: route.path
@@ -93,7 +94,7 @@ export default {
             height: 500,
             markdown: data.content,
             placeholder: '请输入内容...',
-            path: '/static/editor.md/lib/',
+            path: '/editor.md/lib/',
             toolbarIcons() {
                 return [
                     "bold", "italic", "quote", "|",

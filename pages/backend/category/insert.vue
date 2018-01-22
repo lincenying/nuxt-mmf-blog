@@ -23,6 +23,9 @@ import aInput from '@/components/_input.vue'
 export default {
     name: 'backend-category-insert',
     middleware: 'admin',
+    async asyncData({store}) {
+        await store.commit('global/showBackendNav', true)
+    },
     data() {
         return {
             form: {
@@ -53,9 +56,6 @@ export default {
                 this.$router.push('/backend/category/list')
             }
         }
-    },
-    created() {
-        this.$store.commit('global/showBackendNav', true)
     },
     head() {
         return {

@@ -12,10 +12,10 @@
                 <div class="list-category">{{ item.category_name }}</div>
                 <div class="list-date">{{ item.update_date | timeAgo }}</div>
                 <div class="list-action">
-                    <router-link :to="'/backend/article/modify/' + item._id" class="badge badge-success">编辑</router-link>
+                    <router-link :to="'/backend/article/modify/' + item._id" class="badge badge-success">编辑</router-link> •
                     <a v-if="item.is_delete" @click="recover(item._id)" href="javascript:;">恢复</a>
                     <a v-else @click="deletes(item._id)" href="javascript:;">删除</a>
-                    <router-link v-if="item.comment_count > 0" :to="'/backend/article/comment/' + item._id" class="badge badge-success">评论</router-link>
+                    <span v-if="item.comment_count > 0">• <router-link :to="'/backend/article/comment/' + item._id" class="badge badge-success">评论</router-link></span>
                 </div>
             </div>
         </div>
@@ -33,6 +33,7 @@ export default {
     name: 'backend-article-list',
     middleware: 'admin',
     async asyncData({store, route}, config = { page: 1 }) {
+        await store.commit('global/showBackendNav', true)
         await store.dispatch('backend/article/getArticleList', {
             ...config,
             path: route.path
@@ -67,9 +68,6 @@ export default {
                 this.$store.commit('backend/article/deleteArticle', id)
             }
         }
-    },
-    created() {
-        this.$store.commit('global/showBackendNav', true)
     },
     mounted() {
 

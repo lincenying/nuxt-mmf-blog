@@ -55,9 +55,6 @@ export default {
             }
         }
     },
-    created() {
-        this.$store.commit('global/showBackendNav', true)
-    },
     head() {
         return {
             title: '管理员登录 - M.M.F 小屋',

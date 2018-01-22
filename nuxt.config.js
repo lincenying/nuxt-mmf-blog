@@ -1,6 +1,15 @@
 const join = require('path').join
 
 module.exports = {
+    head: {
+        link: [
+            { rel: 'stylesheet', href: '/editor.md/css/editormd.css' },
+        ],
+        script: [
+            { src: '//apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js' },
+            { src: '/editor.md/editormd.min.js' },
+        ]
+    },
     render: {
         bundleRenderer: {
             cache: require('lru-cache')({
@@ -52,6 +61,8 @@ module.exports = {
         lang: 'zh-CN'
     },
     plugins: [{
+        src: '~/plugins/filter'
+    }, {
         src: '~/plugins/router',
         ssr: false
     }]

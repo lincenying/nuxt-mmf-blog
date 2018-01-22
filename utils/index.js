@@ -1,7 +1,28 @@
 import Vue from 'vue'
 import ls from 'store2'
+import toastr from 'toastr'
 
-export const inBrowser = typeof window !== 'undefined'
+toastr.options.positionClass = 'toast-top-center'
+
+const in_browser = typeof window !== 'undefined'
+
+export const inBrowser = in_browser
+
+export const showMsg = config => {
+    let content, type
+    if (typeof config === 'string') {
+        content = config
+        type = 'error'
+    } else {
+        content = config.content
+        type = config.type
+    }
+    if (in_browser) toastr[type](content)
+}
+
+export const hideMsg = () => {
+    toastr.clear()
+}
 
 export const ua = () => {
     const userAgentInfo = inBrowser ? navigator.userAgent : ''

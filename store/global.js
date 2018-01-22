@@ -1,7 +1,4 @@
-import toastr from 'toastr'
-import {inBrowser} from '@/utils'
-
-toastr.options.positionClass = 'toast-top-center'
+import { showMsg, hideMsg } from '@/utils'
 
 export const state = () => ({
     loading: false,
@@ -13,18 +10,10 @@ export const state = () => ({
 
 export const actions = {
     ['showMsg'](store, config) {
-        let content, type
-        if (typeof config === 'string') {
-            content = config
-            type = 'error'
-        } else {
-            content = config.content
-            type = config.type
-        }
-        if (inBrowser) toastr[type](content)
+        showMsg(config)
     },
     ['hideMsg']() {
-        toastr.clear()
+        hideMsg()
     }
 }
 

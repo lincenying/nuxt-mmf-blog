@@ -32,6 +32,7 @@ export default {
     name: 'backend-admin-list',
     middleware: 'admin',
     async asyncData({store, route}, config = { page: 1}) {
+        await store.commit('global/showBackendNav', true)
         await store.dispatch('backend/admin/getAdminList', {
             ...config,
             path: route.path
@@ -66,9 +67,6 @@ export default {
                 this.$store.commit('backend/admin/deleteAdmin', id)
             }
         }
-    },
-    created() {
-        this.$store.commit('global/showBackendNav', true)
     },
     mounted() {
 
