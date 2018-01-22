@@ -3,6 +3,10 @@ import qs from 'qs'
 import md5 from 'md5'
 import config from './config-server'
 
+const trimStr = str => {
+    return str.replace(/(^\s*)|(\s*$)/g,"")
+}
+
 const parseCookie = cookies => {
     let cookie = ''
     Object.keys(cookies).forEach(item => {
@@ -15,8 +19,23 @@ export default {
     api: null,
     cookies: {},
     setCookies(value) {
-        value = value || ''
-        this.cookies = value
+        if (typeof value === 'string') {
+            const arr = value.split(";")
+            const cookies = {}
+            arr.forEach(item => {
+                const tmp = item.split("=")
+                cookies[trimStr(tmp[0])] = trimStr(tmp[1])
+            })
+            this.cookies = cookies
+        } else if (typeof value === 'object') {
+            this.cookies = value && {
+                ...value
+            } || {}
+            value = value && parseCookie(value) || ''
+        } else {
+            this.cookies = {}
+            value = ''
+        }
         this.api = axios.create({
             baseURL: config.api,
             headers: {

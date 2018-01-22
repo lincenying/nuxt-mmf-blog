@@ -33,7 +33,11 @@ app.set('view engine', 'ejs')
 app.use(compression({threshold: 0}))
 
 // 日志
-app.use(logger('":method :url" :status :res[content-length] ":referrer" ":user-agent"'))
+app.use(logger('":method :url" :status :res[content-length] ":referrer" ":user-agent"', {
+    skip(req, res) {
+        return res.statusCode < 400
+    }
+}))
 // body 解析中间件
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))

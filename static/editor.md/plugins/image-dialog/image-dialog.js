@@ -100,7 +100,6 @@
                     return
                 }
                 var Qiniu_upload = function(files, length, i) {
-                    console.log(length, i)
                     if (length > i) {
                         var formdata = new FormData()
                         formdata.append('file', files[i])
