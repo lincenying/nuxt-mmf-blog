@@ -3,9 +3,9 @@ const join = require('path').join
 module.exports = {
     head: {
         link: [
-            { rel: 'stylesheet', href: '/editor.md/css/editormd.css' },
+            { rel: 'stylesheet', href: '/static/editor.md/css/editormd.css' },
             { rel: 'manifest', href: '/manifest.json' },
-            { rel: 'apple-touch-icon', href: '/img/icons/apple-touch-icon-152x152.png' },
+            { rel: 'apple-touch-icon', href: '/static/img/icons/apple-touch-icon-152x152.png' },
         ],
         meta: [
             { hid: 'viewport', name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -13,12 +13,12 @@ module.exports = {
             { hid: 'apple-mobile-web-app-capable', name: 'apple-mobile-web-app-capable', content: 'yes' },
             { hid: 'apple-mobile-web-app-status-bar-style', name: 'apple-mobile-web-app-status-bar-style', content: 'black' },
             { hid: 'apple-mobile-web-app-title', name: 'apple-mobile-web-app-title', content: 'M.M.F 小屋' },
-            { hid: 'msapplication-TileImage', name: 'msapplication-TileImage', content: '/img/icons/msapplication-icon-144x144.png' },
+            { hid: 'msapplication-TileImage', name: 'msapplication-TileImage', content: '/static/img/icons/msapplication-icon-144x144.png' },
             { hid: 'msapplication-TileColor', name: 'msapplication-TileColor', content: '#000000' },
         ],
         script: [
             { src: '//apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js' },
-            { src: '/editor.md/editormd.min.js' },
+            { src: '/static/editor.md/editormd.min.js' },
         ]
     },
     render: {

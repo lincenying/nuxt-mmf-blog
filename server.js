@@ -15,7 +15,7 @@ require('./server/models/user')
 // 引入 api 路由
 const routes = require('./server/routes/index')
 const path = require('path')
-const app = require('express')()
+const express = require('express')
 const compression = require('compression')
 const { Nuxt, Builder } = require('nuxt')
 
@@ -26,12 +26,20 @@ const port = process.env.PORT || 3030
 const config = require('./nuxt.config.js')
 config.dev = !(process.env.NODE_ENV === 'production')
 
+const resolve = file => path.resolve(__dirname, file)
+const serve = (path, cache) => express.static(resolve(path), {
+    maxAge: cache && !config.dev ? 1000 * 60 * 60 * 24 * 30 : 0
+})
+
+const app = express()
+
 // 引用 esj 模板引擎
 app.set('views', path.join(__dirname, 'tpl'))
 app.engine('.html', require('ejs').__express)
 app.set('view engine', 'ejs')
 
-app.use(favicon(path.join(__dirname, 'static') + '/img/icons/favicon-32x32.png'))
+app.use('/static', serve('./static', true))
+app.use(favicon('./static/img/icons/favicon-32x32.png'))
 
 app.use(compression({threshold: 0}))
 
