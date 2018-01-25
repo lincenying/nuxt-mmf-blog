@@ -40,6 +40,7 @@
     "less-loader": "^4.0.5",
     "mongoose": "^5.0.1",
     "morgan": "^1.9.0",
+    "serve-favicon": "^2.4.5",
     "vue-template-compiler": "^2.5.13",
     "webpack": "^3.10.0"
   }

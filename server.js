@@ -4,6 +4,7 @@
 const logger = require('morgan')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
+const favicon = require('serve-favicon')
 // 引入 mongoose 相关模型
 require('./server/models/admin')
 require('./server/models/article')
@@ -29,6 +30,8 @@ config.dev = !(process.env.NODE_ENV === 'production')
 app.set('views', path.join(__dirname, 'tpl'))
 app.engine('.html', require('ejs').__express)
 app.set('view engine', 'ejs')
+
+app.use(favicon(path.join(__dirname, 'static') + '/img/icons/favicon-32x32.png'))
 
 app.use(compression({threshold: 0}))
 
