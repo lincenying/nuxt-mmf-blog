@@ -5,3 +5,4 @@ build
 .cache
 .idea
 .nuxt/
+static/sw.js
