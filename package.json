@@ -1,7 +1,7 @@
 {
-  "name": "nuxt-demo",
+  "name": "nuxt-mmf-blog",
   "version": "1.0.1",
-  "description": "demo",
+  "description": "nuxt-mmf-blog",
   "license": "MIT",
   "scripts": {
     "dev": "node server.js",
