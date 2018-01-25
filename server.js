@@ -19,7 +19,7 @@ const compression = require('compression')
 const { Nuxt, Builder } = require('nuxt')
 
 const host = process.env.HOST || '127.0.0.1'
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3030
 
 // Import and set Nuxt.js options
 const config = require('./nuxt.config.js')

@@ -1,6 +1,8 @@
 # nuxt-mmf-blog
 nuxt: 基于vue2, 支持服务端渲染的二次封装框架
 
+demo: https://nuxt.mmxiaowu.com
+
 ### 1. 安装 nodejs
 
 ### 2. 安装 mongodb
@@ -19,8 +21,8 @@ $npm run dev
 $npm run build
 ```
 
-http://localhost:3000
+http://localhost:3030
 
-后台: http://localhost:3000/backend
+后台: http://localhost:3030/backend
 
-添加管理员: http://localhost:3000/api/backend
+添加管理员: http://localhost:3030/api/backend
