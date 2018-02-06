@@ -47,10 +47,7 @@ module.exports = {
     },
     css: [
         "~/assets/css/hljs/googlecode.css",
-        "~/assets/css/reset.css",
-        "~/assets/css/style.css",
-        "~/assets/less/frontend.less",
-        "~/assets/less/backend.less",
+        "~/assets/less/style.less",
         "toastr/build/toastr.css"
     ],
     loading: {
