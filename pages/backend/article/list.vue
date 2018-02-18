@@ -15,7 +15,7 @@
                     <router-link :to="'/backend/article/modify/' + item._id" class="badge badge-success">编辑</router-link> •
                     <a v-if="item.is_delete" @click="recover(item._id)" href="javascript:;">恢复</a>
                     <a v-else @click="deletes(item._id)" href="javascript:;">删除</a>
-                    <span v-if="item.comment_count > 0">• <router-link :to="'/backend/article/comment/' + item._id" class="badge badge-success">评论</router-link></span>
+                    <span v-if="item.comment_count > 0"> • <router-link :to="'/backend/article/comment/' + item._id" class="badge badge-success">评论</router-link></span>
                 </div>
             </div>
         </div>
