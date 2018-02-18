@@ -6,3 +6,4 @@ build
 .idea
 .nuxt/
 static/sw.js
+server/config/secret.js
