@@ -1,24 +1,18 @@
 import Vue from 'vue'
 import NuxtLoading from './components/nuxt-loading.vue'
 
-import '../assets/css/hljs/googlecode.css'
+import '..\\assets\\css\\hljs\\googlecode.css'
 
-import '../assets/css/reset.css'
+import '..\\assets\\less\\style.less'
 
-import '../assets/css/style.css'
-
-import '../assets/less/frontend.less'
-
-import '../assets/less/backend.less'
-
-import '../node_modules/toastr/build/toastr.css'
+import '..\\node_modules\\toastr\\build\\toastr.css'
 
 
 let layouts = {
 
-  "_blog": () => import('../layouts/blog.vue'  /* webpackChunkName: "layouts/blog" */).then(m => m.default || m),
+  "_blog": () => import('..\\layouts\\blog.vue'  /* webpackChunkName: "layouts_blog" */).then(m => m.default || m),
 
-  "_default": () => import('../layouts/default.vue'  /* webpackChunkName: "layouts/default" */).then(m => m.default || m)
+  "_default": () => import('..\\layouts\\default.vue'  /* webpackChunkName: "layouts_default" */).then(m => m.default || m)
 
 }
 

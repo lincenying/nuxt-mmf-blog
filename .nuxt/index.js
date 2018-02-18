@@ -5,16 +5,15 @@ import { createRouter } from './router.js'
 import NoSSR from './components/no-ssr.js'
 import NuxtChild from './components/nuxt-child.js'
 import NuxtLink from './components/nuxt-link.js'
-import NuxtError from '../layouts/error.vue'
+import NuxtError from '..\\layouts\\error.vue'
 import Nuxt from './components/nuxt.js'
 import App from './App.js'
 import { setContext, getLocation, getRouteData } from './utils'
 import { createStore } from './store.js'
 
 /* Plugins */
-import nuxt_plugin_swplugin_534087cc from 'nuxt_plugin_swplugin_534087cc' // Source: ./sw.plugin.js (ssr: false)
-import nuxt_plugin_filter_68021324 from 'nuxt_plugin_filter_68021324' // Source: ../plugins/filter
-import nuxt_plugin_router_3e5c7b82 from 'nuxt_plugin_router_3e5c7b82' // Source: ../plugins/router (ssr: false)
+import nuxt_plugin_filter_68021324 from 'nuxt_plugin_filter_68021324' // Source: ..\\plugins\\filter
+import nuxt_plugin_router_3e5c7b82 from 'nuxt_plugin_router_3e5c7b82' // Source: ..\\plugins\\router (ssr: false)
 
 
 // Component: <no-ssr>
@@ -156,7 +155,6 @@ async function createApp (ssrContext) {
   if (typeof nuxt_plugin_filter_68021324 === 'function') await nuxt_plugin_filter_68021324(app.context, inject)
   
   if (process.browser) { 
-    if (typeof nuxt_plugin_swplugin_534087cc === 'function') await nuxt_plugin_swplugin_534087cc(app.context, inject)
     if (typeof nuxt_plugin_router_3e5c7b82 === 'function') await nuxt_plugin_router_3e5c7b82(app.context, inject)
   }
 

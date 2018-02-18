@@ -1,15 +1,12 @@
 import Vue from 'vue'
 import NuxtChild from './nuxt-child'
-import NuxtError from '../../layouts/error.vue'
+import NuxtError from '../..\\layouts\\error.vue'
 import { compile } from '../utils'
 
 export default {
   name: 'nuxt',
-  props: ['nuxtChildKey'],
+  props: ['nuxtChildKey', 'keepAlive'],
   render(h) {
-    if (this.nuxt._redirected) {
-      return h('div', [ 'Redirecting to external page.' ])
-    }
     // If there is some error
     if (this.nuxt.err) {
       return h('nuxt-error', {
@@ -20,7 +17,8 @@ export default {
     }
     // Directly return nuxt child
     return h('nuxt-child', {
-      key: this.routerViewKey
+      key: this.routerViewKey,
+      props: this.$props
     })
   },
   beforeCreate () {
