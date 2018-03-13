@@ -9,7 +9,7 @@
                 <i class="icon icon-arrow-down"></i>
                 <select v-model="form.category" class="select-item" name="category">
                     <option value="">请选择分类</option>
-                    <option v-for="item in category" :value="item._id">{{ item.cate_name }}</option>
+                    <option v-for="item in category" :value="item._id" :key="item._id">{{ item.cate_name }}</option>
                 </select>
                 <span class="input-info error">请输入分类</span>
             </a-input>

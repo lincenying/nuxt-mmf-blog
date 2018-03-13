@@ -6,38 +6,38 @@ export const state = () => ({
         hasPrev: false,
         path: '',
         page: 1,
-        data: []
+        data: [],
     },
     item: {
         data: {},
-        path: ''
-    }
+        path: '',
+    },
 })
 
 export const actions = {
-    async ['getUserList'] ({commit, state}, config) {
+    async ['getUserList']({ commit, state }, config) {
         if (state.lists.data.length > 0 && config.path === state.lists.path && config.page === 1) return
-        const { data: { data, code} } = await api.get('backend/user/list', {...config, cache: true})
+        const { data: { data, code } } = await api.get('backend/user/list', { ...config, cache: true })
         if (data && code === 200) {
             commit('receiveUserList', {
                 ...data,
-                ...config
+                ...config,
             })
         }
     },
-    async ['getUserItem'] ({commit}, config) {
-        const { data: { data, code} } = await api.get('backend/user/item', config)
+    async ['getUserItem']({ commit }, config) {
+        const { data: { data, code } } = await api.get('backend/user/item', config)
         if (data && code === 200) {
             commit('receiveUserItem', {
                 data,
-                ...config
+                ...config,
             })
         }
-    }
+    },
 }
 
 export const mutations = {
-    ['receiveUserList'](state, {list, path, hasNext, hasPrev, page}) {
+    ['receiveUserList'](state, { list, path, hasNext, hasPrev, page }) {
         if (page === 1) {
             list = [].concat(list)
         } else {
@@ -45,7 +45,11 @@ export const mutations = {
         }
         page++
         state.lists = {
-            data: list, hasNext, hasPrev, page, path
+            data: list,
+            hasNext,
+            hasPrev,
+            page,
+            path,
         }
     },
     ['receiveUserItem'](state, payload) {
@@ -65,14 +69,14 @@ export const mutations = {
     ['recoverUser'](state, id) {
         const obj = state.lists.data.find(ii => ii._id === id)
         if (obj) obj.is_delete = 0
-    }
+    },
 }
 
 export const getters = {
-    ['getUserList'] (state) {
+    ['getUserList'](state) {
         return state.lists
     },
-    ['getUserItem'] (state) {
+    ['getUserItem'](state) {
         return state.item
-    }
+    },
 }

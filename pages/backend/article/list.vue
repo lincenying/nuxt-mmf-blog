@@ -7,7 +7,7 @@
                 <div class="list-date">最后更新</div>
                 <div class="list-action">操作</div>
             </div>
-            <div v-for="item in topics.data" class="list-section">
+            <div v-for="item in topics.data" :key="item._id" class="list-section">
                 <div class="list-title">{{ item.title }}</div>
                 <div class="list-category">{{ item.category_name }}</div>
                 <div class="list-date">{{ item.update_date | timeAgo }}</div>

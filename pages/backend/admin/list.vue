@@ -7,7 +7,7 @@
                 <div class="list-date">时间</div>
                 <div class="list-action">操作</div>
             </div>
-            <div v-for="item in admin.data" class="list-section">
+            <div v-for="item in admin.data" :key="item._id" class="list-section">
                 <div class="list-username">{{ item.username }}</div>
                 <div class="list-email">{{ item.email }}</div>
                 <div class="list-date">{{ item.update_date | timeYmd }}</div>

@@ -26,9 +26,10 @@ const config = require('./nuxt.config.js')
 config.dev = !(process.env.NODE_ENV === 'production')
 
 const resolve = file => path.resolve(__dirname, file)
-const serve = (path, cache) => express.static(resolve(path), {
-    maxAge: cache && !config.dev ? 1000 * 60 * 60 * 24 * 30 : 0
-})
+const serve = (path, cache) =>
+    express.static(resolve(path), {
+        maxAge: cache && !config.dev ? 1000 * 60 * 60 * 24 * 30 : 0,
+    })
 
 const app = express()
 
@@ -40,14 +41,16 @@ app.set('view engine', 'ejs')
 app.use('/static', serve('./static', true))
 app.use(favicon('./static/img/icons/favicon-32x32.png'))
 
-app.use(compression({threshold: 0}))
+app.use(compression({ threshold: 0 }))
 
 // 日志
-app.use(logger('":method :url" :status :res[content-length] ":referrer" ":user-agent"', {
-    skip(req, res) {
-        return res.statusCode < 400
-    }
-}))
+app.use(
+    logger('":method :url" :status :res[content-length] ":referrer" ":user-agent"', {
+        skip(req, res) {
+            return res.statusCode < 400
+        },
+    })
+)
 // body 解析中间件
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))

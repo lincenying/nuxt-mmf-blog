@@ -6,7 +6,7 @@
                 <div class="list-time">分类排序</div>
                 <div class="list-action">操作</div>
             </div>
-            <div v-for="item in category" class="list-section">
+            <div v-for="item in category" :key="item._id" class="list-section">
                 <div class="list-title">{{ item.cate_name }}</div>
                 <div class="list-time">{{ item.cate_order }}</div>
                 <div class="list-action">

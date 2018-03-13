@@ -1,21 +1,21 @@
 <template>
-<div id="app" :class="backend ? 'backend' : 'frontend'">
-    <Navigation :backend="backend"></Navigation>
-    <template v-if="!backend">
-        <nuxt :key="key"/>
-        <sign-up :show="global.showRegisterModal"></sign-up>
-        <sign-in :show="global.showLoginModal"></sign-in>
-        <back-top></back-top>
-    </template>
-    <div v-else class="main wrap clearfix">
-        <div class="main-left">
-            <div class="home-feeds cards-wrap">
-                <nuxt :key="key"/>
+    <div id="app" :class="backend ? 'backend' : 'frontend'">
+        <Navigation :backend="backend"></Navigation>
+        <template v-if="!backend">
+            <nuxt :key="key"/>
+            <sign-up :show="global.showRegisterModal"></sign-up>
+            <sign-in :show="global.showLoginModal"></sign-in>
+            <back-top></back-top>
+        </template>
+        <div v-else class="main wrap clearfix">
+            <div class="main-left">
+                <div class="home-feeds cards-wrap">
+                    <nuxt :key="key"/>
+                </div>
             </div>
+            <backend-menu v-if="!isLogin"></backend-menu>
         </div>
-        <backend-menu v-if="!isLogin"></backend-menu>
     </div>
-</div>
 </template>
 
 <script>
@@ -36,15 +36,13 @@ export default {
         backendMenu,
     },
     data() {
-        return { }
+        return {}
     },
     computed: {
         ...mapGetters({
-            global: 'global/getGlobal'
+            global: 'global/getGlobal',
         }),
-        ...mapState('appShell', [
-            'pageTransitionName'
-        ]),
+        ...mapState('appShell', ['pageTransitionName']),
         key() {
             return this.$route.path.replace(/\//g, '_')
         },
@@ -53,7 +51,7 @@ export default {
         },
         isLogin() {
             return ['/backend', '/backend/'].includes(this.$route.path)
-        }
+        },
     },
     methods: {
         handleBeforeEnter() {

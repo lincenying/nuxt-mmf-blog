@@ -6,9 +6,7 @@
 
 import * as types from '@/config/mutation-types'
 
-
 export const state = () => ({
-
     /**
      * 是否需要页面切换动画
      *
@@ -35,17 +33,16 @@ export const state = () => ({
      *
      * @type {Object}
      */
-    historyPageScrollTop: {}
+    historyPageScrollTop: {},
 })
 
 export const actions = {
-
     /**
      * 开启页面切换动画
      *
      * @param {Function} commit commit
      */
-    enablePageTransition({commit}) {
+    enablePageTransition({ commit }) {
         commit(types.ENABLE_PAGE_TRANSITION, true)
     },
 
@@ -54,7 +51,7 @@ export const actions = {
      *
      * @param {Function} commit commit
      */
-    disablePageTransition({commit}) {
+    disablePageTransition({ commit }) {
         commit(types.DISABLE_PAGE_TRANSITION, false)
     },
 
@@ -64,7 +61,7 @@ export const actions = {
      * @param {Function} commit commit
      * @param {boolean} isPageSwitching isPageSwitching
      */
-    setPageSwitching({commit}, isPageSwitching) {
+    setPageSwitching({ commit }, isPageSwitching) {
         commit(types.SET_PAGE_SWITCHING, isPageSwitching)
     },
 
@@ -75,19 +72,19 @@ export const actions = {
      * @param {string} options.path path
      * @param {number} options.scrollTop scrollTop
      */
-    saveScrollTop({commit}, {path, scrollTop}) {
-        commit(types.SAVE_SCROLLTOP, {path, scrollTop})
-    }
+    saveScrollTop({ commit }, { path, scrollTop }) {
+        commit(types.SAVE_SCROLLTOP, { path, scrollTop })
+    },
 }
 
 export const mutations = {
     [types.SET_PAGE_SWITCHING](state, isPageSwitching) {
         state.isPageSwitching = isPageSwitching
     },
-    [types.SET_PAGE_TRANSITION_NAME](state, {pageTransitionName}) {
+    [types.SET_PAGE_TRANSITION_NAME](state, { pageTransitionName }) {
         state.pageTransitionName = pageTransitionName
     },
-    [types.SAVE_SCROLLTOP](state, {path, scrollTop}) {
+    [types.SAVE_SCROLLTOP](state, { path, scrollTop }) {
         state.historyPageScrollTop[path] = scrollTop
-    }
+    },
 }

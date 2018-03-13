@@ -4,7 +4,7 @@ export const state = () => ({
     loading: false,
     cookies: {},
     showLoginModal: false,
-    showRegisterModal: false
+    showRegisterModal: false,
 })
 
 export const actions = {
@@ -13,7 +13,7 @@ export const actions = {
     },
     ['hideMsg']() {
         hideMsg()
-    }
+    },
 }
 
 export const mutations = {
@@ -28,5 +28,5 @@ export const mutations = {
 export const getters = {
     ['getGlobal'](state) {
         return state
-    }
+    },
 }

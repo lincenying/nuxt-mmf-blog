@@ -11,23 +11,31 @@ module.exports = {
             { hid: 'viewport', name: 'viewport', content: 'width=device-width, initial-scale=1' },
             { hid: 'theme-color', name: 'theme-color', content: '#2874f0' },
             { hid: 'apple-mobile-web-app-capable', name: 'apple-mobile-web-app-capable', content: 'yes' },
-            { hid: 'apple-mobile-web-app-status-bar-style', name: 'apple-mobile-web-app-status-bar-style', content: 'black' },
+            {
+                hid: 'apple-mobile-web-app-status-bar-style',
+                name: 'apple-mobile-web-app-status-bar-style',
+                content: 'black',
+            },
             { hid: 'apple-mobile-web-app-title', name: 'apple-mobile-web-app-title', content: 'M.M.F 小屋' },
-            { hid: 'msapplication-TileImage', name: 'msapplication-TileImage', content: '/static/img/icons/msapplication-icon-144x144.png' },
+            {
+                hid: 'msapplication-TileImage',
+                name: 'msapplication-TileImage',
+                content: '/static/img/icons/msapplication-icon-144x144.png',
+            },
             { hid: 'msapplication-TileColor', name: 'msapplication-TileColor', content: '#000000' },
         ],
         script: [
             { src: '//apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js' },
             { src: '/static/editor.md/editormd.min.js' },
-        ]
+        ],
     },
     render: {
         bundleRenderer: {
             cache: require('lru-cache')({
                 max: 1000,
-                maxAge: 1000 * 60 * 15
-            })
-        }
+                maxAge: 1000 * 60 * 15,
+            }),
+        },
     },
     build: {
         vendor: ['axios'],
@@ -39,26 +47,19 @@ module.exports = {
             }
         },
         extractCSS: true,
-        babel: {}
+        babel: {},
     },
     cache: {
         max: 1000,
-        maxAge: 900000
+        maxAge: 900000,
     },
-    css: [
-        "~/assets/css/hljs/googlecode.css",
-        "~/assets/less/style.less",
-        "toastr/build/toastr.css"
-    ],
+    css: ['~/assets/css/hljs/googlecode.css', '~/assets/less/style.less', 'toastr/build/toastr.css'],
     loading: {
         color: '#4FC08D',
         failedColor: '#bf5050',
-        duration: 1500
+        duration: 1500,
     },
-    modules: [
-        '@nuxtjs/workbox',
-        '@nuxtjs/manifest'
-    ],
+    modules: ['@nuxtjs/workbox', '@nuxtjs/manifest'],
     manifest: {
         name: 'MMF-Blog',
         short_name: 'MMF-Blog',
@@ -66,31 +67,34 @@ module.exports = {
         start_url: 'https://www.mmxiaowu.com/',
         theme_color: '#da552f',
         background_color: '#FFF',
-        lang: 'zh-CN'
+        lang: 'zh-CN',
     },
-    plugins: [{
-        src: '~/plugins/filter'
-    }, {
-        src: '~/plugins/router',
-        ssr: false
-    }],
+    plugins: [
+        {
+            src: '~/plugins/filter',
+        },
+        {
+            src: '~/plugins/router',
+            ssr: false,
+        },
+    ],
     router: {
-        extendRoutes (routes, resolve) {
+        extendRoutes(routes, resolve) {
             routes.push({
                 name: 'trending',
                 path: '/trending/:by',
-                component: resolve(__dirname, 'pages/index.vue')
+                component: resolve(__dirname, 'pages/index.vue'),
             })
             routes.push({
                 name: 'category',
                 path: '/category/:id',
-                component: resolve(__dirname, 'pages/index.vue')
+                component: resolve(__dirname, 'pages/index.vue'),
             })
             routes.push({
                 name: 'search',
                 path: '/search/:key',
-                component: resolve(__dirname, 'pages/index.vue')
+                component: resolve(__dirname, 'pages/index.vue'),
             })
-        }
-    }
+        },
+    },
 }

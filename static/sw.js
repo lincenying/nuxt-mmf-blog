@@ -1,19 +1,19 @@
 importScripts('/_nuxt/workbox.476439e0.js')
 
 const workboxSW = new self.WorkboxSW({
-  "cacheId": "nuxt-mmf-blog",
+  "cacheId": "nuxt",
   "clientsClaim": true,
   "directoryIndex": "/"
 })
 
 workboxSW.precache([
   {
-    "url": "/_nuxt/app.3fcb2eb7ad9bd66f292daa521980c14b.css",
-    "revision": "3fcb2eb7ad9bd66f292daa521980c14b"
+    "url": "/_nuxt/app.2b94aeafbe4c8d4c50ee8ce97465bb3e.css",
+    "revision": "2b94aeafbe4c8d4c50ee8ce97465bb3e"
   },
   {
-    "url": "/_nuxt/app.7416f1b7677645f8fe04.js",
-    "revision": "2e305c30ee29b0e466159c5cf29f86cc"
+    "url": "/_nuxt/app.63987c5655ff1684ff60.js",
+    "revision": "a5e001dd43fa490c8442f1ec29643707"
   },
   {
     "url": "/_nuxt/layouts/blog.e1ab334251603190b1df.js",
@@ -24,8 +24,8 @@ workboxSW.precache([
     "revision": "b38d5bd3b7acca4fbdf2f91583cd3b0d"
   },
   {
-    "url": "/_nuxt/manifest.e63b15d697bd603ae5e8.js",
-    "revision": "4296d8352d02d27a9958493598c0d53a"
+    "url": "/_nuxt/manifest.cf1a8d0f85e00020ee71.js",
+    "revision": "923bebbbb3eee4d394500572655b422c"
   },
   {
     "url": "/_nuxt/pages/about.8dfe858389607d0a017c.js",
@@ -52,8 +52,8 @@ workboxSW.precache([
     "revision": "33cc5b9c8f3abb4164060e3c79b47c01"
   },
   {
-    "url": "/_nuxt/pages/backend/article/list.a54390b3f724d59f4179.js",
-    "revision": "bd768bd529858b60df2a1b23cd464f1a"
+    "url": "/_nuxt/pages/backend/article/list.886486c782e853578583.js",
+    "revision": "8e95622eb4d965f5a2b4dffb4150820a"
   },
   {
     "url": "/_nuxt/pages/backend/article/modify/_id.724eeaeb068dfbc2c626.js",
@@ -84,8 +84,8 @@ workboxSW.precache([
     "revision": "ce1534f2c0bcd9e7e077c42aad7b8f99"
   },
   {
-    "url": "/_nuxt/pages/index.0cef652221367d163c20.js",
-    "revision": "2ba36b12effd968e40a28da71a97e50b"
+    "url": "/_nuxt/pages/index.ac2dd9dd79a5b1e2b8ad.js",
+    "revision": "30cb9b6a41fc91c07f2f25c4faf00b86"
   },
   {
     "url": "/_nuxt/pages/user/account.597245d4cbaf63b25c2e.js",
@@ -96,8 +96,8 @@ workboxSW.precache([
     "revision": "fd8842cd96953e1826fb005d5b733721"
   },
   {
-    "url": "/_nuxt/vendor.452ce531f0d181685a31.js",
-    "revision": "a2ad93a25ce06a2660d73ec35f6e4287"
+    "url": "/_nuxt/vendor.da2a31f3628110fb7b35.js",
+    "revision": "a059c98e1c8eb788da327f770d984865"
   }
 ])
 
