@@ -1523,9 +1523,9 @@ caniuse-lite@^1.0.30000808:
   version "1.0.30000811"
   resolved "http://registry.npm.taobao.org/caniuse-lite/download/caniuse-lite-1.0.30000811.tgz#0b6e40f2efccc27bd3cb52f91ee7ca4673d77d10"
 
-caniuse-lite@^1.0.30000814:
-  version "1.0.30000814"
-  resolved "http://registry.npm.taobao.org/caniuse-lite/download/caniuse-lite-1.0.30000814.tgz#73eb6925ac2e54d495218f1ea0007da3940e488b"
+caniuse-lite@^1.0.30000815:
+  version "1.0.30000815"
+  resolved "http://registry.npm.taobao.org/caniuse-lite/download/caniuse-lite-1.0.30000815.tgz#3a4258e6850362185adb11b0d754a48402d35bf6"
 
 capture-stack-trace@^1.0.0:
   version "1.0.0"
@@ -8003,9 +8003,9 @@ vue-server-renderer@^2.5.13:
     serialize-javascript "^1.3.0"
     source-map "0.5.6"
 
-vue-server-renderer@^2.5.15:
-  version "2.5.15"
-  resolved "http://registry.npm.taobao.org/vue-server-renderer/download/vue-server-renderer-2.5.15.tgz#36284a74c4562f7206a982f90888a3cc7a46ae02"
+vue-server-renderer@^2.5.16:
+  version "2.5.16"
+  resolved "http://registry.npm.taobao.org/vue-server-renderer/download/vue-server-renderer-2.5.16.tgz#279ef8e37e502a0de3a9ae30758cc04a472eaac0"
   dependencies:
     chalk "^1.1.3"
     hash-sum "^1.0.2"
@@ -8030,9 +8030,9 @@ vue-template-compiler@^2.5.13:
     de-indent "^1.0.2"
     he "^1.1.0"
 
-vue-template-compiler@^2.5.15:
-  version "2.5.15"
-  resolved "http://registry.npm.taobao.org/vue-template-compiler/download/vue-template-compiler-2.5.15.tgz#cc004097e37167be8b85ea22ab2840d8e8cca1c0"
+vue-template-compiler@^2.5.16:
+  version "2.5.16"
+  resolved "http://registry.npm.taobao.org/vue-template-compiler/download/vue-template-compiler-2.5.16.tgz#93b48570e56c720cdf3f051cc15287c26fbd04cb"
   dependencies:
     de-indent "^1.0.2"
     he "^1.1.0"
@@ -8045,9 +8045,9 @@ vue@^2.5.13:
   version "2.5.13"
   resolved "http://registry.npm.taobao.org/vue/download/vue-2.5.13.tgz#95bd31e20efcf7a7f39239c9aa6787ce8cf578e1"
 
-vue@^2.5.15:
-  version "2.5.15"
-  resolved "http://registry.npm.taobao.org/vue/download/vue-2.5.15.tgz#fdb67861dde967cd8d1b53116380f2f269b45202"
+vue@^2.5.16:
+  version "2.5.16"
+  resolved "http://registry.npm.taobao.org/vue/download/vue-2.5.16.tgz#07edb75e8412aaeed871ebafa99f4672584a0085"
 
 vuex@^3.0.1:
   version "3.0.1"

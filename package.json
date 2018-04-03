@@ -7,9 +7,7 @@
     "dev": "node server.js",
     "build": "nuxt build",
     "start": "NODE_ENV=production node server.js",
-    "lint:server": "eslint --ext .js server/ --fix",
-    "lint:client": "eslint --ext .jsx,.js,.vue pages/ --fix",
-    "lint": "npm run lint:client && npm run lint:server"
+    "lint": "eslint --ext .js,.jsx,.vue ./ --fix"
   },
   "dependencies": {
     "@nuxtjs/pwa": "2.0.8",
@@ -24,8 +22,8 @@
     "store2": "^2.7.0",
     "theme-default": "^4.0.0",
     "toastr": "^2.1.4",
-    "vue": "^2.5.15",
-    "vue-server-renderer": "^2.5.15"
+    "vue": "^2.5.16",
+    "vue-server-renderer": "^2.5.16"
   },
   "devDependencies": {
     "babel-plugin-component": "^1.0.0",
@@ -33,7 +31,7 @@
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-stage-2": "^6.24.1",
     "body-parser": "^1.18.2",
-    "caniuse-lite": "^1.0.30000814",
+    "caniuse-lite": "^1.0.30000815",
     "connect-multiparty": "^2.1.0",
     "cookie-parser": "^1.4.3",
     "eslint-config-lcy-vue": "^2.1.3",
@@ -46,11 +44,11 @@
     "morgan": "^1.9.0",
     "prettier": "^1.11.1",
     "serve-favicon": "^2.4.5",
-    "vue-template-compiler": "^2.5.15",
+    "vue-template-compiler": "^2.5.16",
     "webpack": "^3.11.0"
   },
   "engines": {
-    "node": ">= 8.0.0",
+    "node": ">= 8.6.0",
     "npm": ">= 5.0.0"
   }
 }
