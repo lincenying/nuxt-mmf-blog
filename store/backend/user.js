@@ -6,34 +6,38 @@ export const state = () => ({
         hasPrev: false,
         path: '',
         page: 1,
-        data: [],
+        data: []
     },
     item: {
         data: {},
-        path: '',
-    },
+        path: ''
+    }
 })
 
 export const actions = {
     async ['getUserList']({ commit, state }, config) {
         if (state.lists.data.length > 0 && config.path === state.lists.path && config.page === 1) return
-        const { data: { data, code } } = await api.get('backend/user/list', { ...config, cache: true })
+        const {
+            data: { data, code }
+        } = await api.get('backend/user/list', { ...config, cache: true })
         if (data && code === 200) {
             commit('receiveUserList', {
                 ...data,
-                ...config,
+                ...config
             })
         }
     },
     async ['getUserItem']({ commit }, config) {
-        const { data: { data, code } } = await api.get('backend/user/item', config)
+        const {
+            data: { data, code }
+        } = await api.get('backend/user/item', config)
         if (data && code === 200) {
             commit('receiveUserItem', {
                 data,
-                ...config,
+                ...config
             })
         }
-    },
+    }
 }
 
 export const mutations = {
@@ -49,7 +53,7 @@ export const mutations = {
             hasNext,
             hasPrev,
             page,
-            path,
+            path
         }
     },
     ['receiveUserItem'](state, payload) {
@@ -69,7 +73,7 @@ export const mutations = {
     ['recoverUser'](state, id) {
         const obj = state.lists.data.find(ii => ii._id === id)
         if (obj) obj.is_delete = 0
-    },
+    }
 }
 
 export const getters = {
@@ -78,5 +82,5 @@ export const getters = {
     },
     ['getUserItem'](state) {
         return state.item
-    },
+    }
 }

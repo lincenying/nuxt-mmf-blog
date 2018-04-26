@@ -5,5 +5,5 @@ export const actions = {
     nuxtServerInit(store, context) {
         const { req } = context
         api.setCookies(req && req.headers.cookie)
-    },
+    }
 }

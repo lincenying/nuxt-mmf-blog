@@ -30,7 +30,7 @@ export default {
         } else if (typeof value === 'object') {
             this.cookies =
                 (value && {
-                    ...value,
+                    ...value
                 }) ||
                 {}
             value = (value && parseCookie(value)) || ''
@@ -42,9 +42,9 @@ export default {
             baseURL: config.api,
             headers: {
                 'X-Requested-With': 'XMLHttpRequest',
-                cookie: value,
+                cookie: value
             },
-            timeout: config.timeout,
+            timeout: config.timeout
         })
     },
     post(url, data) {
@@ -60,8 +60,8 @@ export default {
             url,
             data: qs.stringify(data),
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-            },
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+            }
         }).then(res => {
             if (config.cached && data.cache) config.cached.set(key, res)
             return res
@@ -78,10 +78,10 @@ export default {
         return this.api({
             method: 'get',
             url,
-            params,
+            params
         }).then(res => {
             if (config.cached && params.cache) config.cached.set(key, res)
             return res
         })
-    },
+    }
 }

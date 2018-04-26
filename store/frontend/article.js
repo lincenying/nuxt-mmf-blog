@@ -5,44 +5,50 @@ export const state = () => ({
         data: [],
         hasNext: 0,
         page: 1,
-        path: '',
+        path: ''
     },
     item: {
         data: {},
         path: '',
-        isLoad: false,
+        isLoad: false
     },
-    trending: [],
+    trending: []
 })
 
 export const actions = {
     async ['getArticleList']({ commit, state }, config) {
         if (state.lists.data.length > 0 && config.path === state.lists.path && config.page === 1) return
-        const { data: { data, code } } = await api.get('frontend/article/list', { ...config, cache: true })
+        const {
+            data: { data, code }
+        } = await api.get('frontend/article/list', { ...config, cache: true })
         if (data && code === 200) {
             commit('receiveArticleList', {
                 ...config,
-                ...data,
+                ...data
             })
         }
     },
     async ['getArticleItem']({ commit, state }, config) {
         if (config.path === state.item.path) return
-        const { data: { data, code } } = await api.get('frontend/article/item', { ...config, markdown: 1, cache: true })
+        const {
+            data: { data, code }
+        } = await api.get('frontend/article/item', { ...config, markdown: 1, cache: true })
         if (data && code === 200) {
             commit('receiveArticleItem', {
                 data,
-                ...config,
+                ...config
             })
         }
     },
     async ['getTrending']({ commit, state }) {
         if (state.trending.length) return
-        const { data: { data, code } } = await api.get('frontend/trending', { cache: true })
+        const {
+            data: { data, code }
+        } = await api.get('frontend/trending', { cache: true })
         if (data && code === 200) {
             commit('receiveTrending', data)
         }
-    },
+    }
 }
 
 export const mutations = {
@@ -57,14 +63,14 @@ export const mutations = {
             hasNext,
             hasPrev,
             page,
-            path,
+            path
         }
     },
     ['receiveArticleItem'](state, { data, path }) {
         state.item = {
             data,
             path,
-            isLoad: true,
+            isLoad: true
         }
     },
     ['receiveTrending'](state, data) {
@@ -82,7 +88,7 @@ export const mutations = {
             else obj.like--
             obj.like_status = status
         }
-    },
+    }
 }
 
 export const getters = {
@@ -94,5 +100,5 @@ export const getters = {
     },
     ['getTrending'](state) {
         return state.trending
-    },
+    }
 }

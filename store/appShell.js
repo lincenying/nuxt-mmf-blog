@@ -31,7 +31,7 @@ export const state = () => ({
      *
      * @type {Object}
      */
-    historyPageScrollTop: {},
+    historyPageScrollTop: {}
 })
 
 export const actions = {
@@ -72,7 +72,7 @@ export const actions = {
      */
     saveScrollTop({ commit }, { path, scrollTop }) {
         commit('saveScrollTop', { path, scrollTop })
-    },
+    }
 }
 
 export const mutations = {
@@ -84,5 +84,5 @@ export const mutations = {
     },
     ['saveScrollTop'](state, { path, scrollTop }) {
         state.historyPageScrollTop[path] = scrollTop
-    },
+    }
 }
