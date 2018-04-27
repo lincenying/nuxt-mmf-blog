@@ -10,7 +10,9 @@
                 <div class="card card-question-head">
                     <div class="question-content">
                         <router-link :to="'/category/' + article.data.category" v-text="article.data.category_name" class="topic-link-item"></router-link>
-                        <h2 class="question-title"><router-link :to="'/article/' + article.data._id" v-text="article.data.title" class="question-title-link"></router-link></h2>
+                        <h2 class="question-title">
+                            <router-link :to="'/article/' + article.data._id" v-text="article.data.title" class="question-title-link"></router-link>
+                        </h2>
                     </div>
                 </div>
                 <div class="card card-answer">
@@ -43,13 +45,14 @@ import comment from '@/components/frontend-comment.vue'
 
 export default {
     name: 'frontend-article',
-    async asyncData({store, route}) {
+    async asyncData({store, route, req}) {
+        const cookies = req && req.headers.cookie
         const { path, params: { id }} = route
         await Promise.all([
             store.dispatch('global/category/getCategoryList'),
             store.dispatch('frontend/article/getTrending'),
             store.dispatch(`global/comment/getCommentList`, { id, path, page: 1, limit: 10}),
-            store.dispatch(`frontend/article/getArticleItem`, { id, path })
+            store.dispatch(`frontend/article/getArticleItem`, { id, path, cookies })
         ])
     },
     beforeRouteUpdate(to, from, next) {

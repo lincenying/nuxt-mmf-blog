@@ -8,6 +8,22 @@ const trimStr = str => {
 }
 
 const parseCookie = cookies => {
+    let $return
+    if (typeof cookies === 'string') {
+        const arr = cookies.split(';')
+        const cookie = {}
+        arr.forEach(item => {
+            const tmp = item.split('=')
+            cookie[trimStr(tmp[0])] = trimStr(tmp[1])
+        })
+        $return = cookie
+    } else if (typeof cookies === 'object') {
+        $return = (cookies && { ...cookies }) || {}
+    }
+    return $return
+}
+
+const objToStr = cookies => {
     let cookie = ''
     Object.keys(cookies).forEach(item => {
         cookie += item + '=' + cookies[item] + '; '
@@ -16,40 +32,19 @@ const parseCookie = cookies => {
 }
 
 export default {
-    api: null,
-    cookies: {},
-    setCookies(value) {
-        if (typeof value === 'string') {
-            const arr = value.split(';')
-            const cookies = {}
-            arr.forEach(item => {
-                const tmp = item.split('=')
-                cookies[trimStr(tmp[0])] = trimStr(tmp[1])
-            })
-            this.cookies = cookies
-        } else if (typeof value === 'object') {
-            this.cookies =
-                (value && {
-                    ...value
-                }) ||
-                {}
-            value = (value && parseCookie(value)) || ''
-        } else {
-            this.cookies = {}
-            value = ''
-        }
-        this.api = axios.create({
-            baseURL: config.api,
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest',
-                cookie: value
-            },
-            timeout: config.timeout
-        })
-    },
+    api: axios.create({
+        baseURL: config.api,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        timeout: config.timeout
+    }),
     post(url, data) {
-        if (!this.api) this.setCookies()
-        const cookies = this.cookies
+        let cookies = {}
+        if (data.cookies) {
+            cookies = parseCookie(data.cookies)
+            delete data.cookies
+        }
         const username = cookies.username || ''
         const key = md5(url + JSON.stringify(data) + username)
         if (config.cached && data.cache && config.cached.has(key)) {
@@ -60,7 +55,8 @@ export default {
             url,
             data: qs.stringify(data),
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                cookie: objToStr(cookies)
             }
         }).then(res => {
             if (config.cached && data.cache) config.cached.set(key, res)
@@ -68,8 +64,11 @@ export default {
         })
     },
     get(url, params) {
-        if (!this.api) this.setCookies()
-        const cookies = this.cookies
+        let cookies = {}
+        if (params.cookies) {
+            cookies = parseCookie(params.cookies)
+            delete params.cookies
+        }
         const username = cookies.username || ''
         const key = md5(url + JSON.stringify(params) + username)
         if (config.cached && params.cache && config.cached.has(key)) {
@@ -78,7 +77,10 @@ export default {
         return this.api({
             method: 'get',
             url,
-            params
+            params,
+            headers: {
+                cookie: objToStr(cookies)
+            }
         }).then(res => {
             if (config.cached && params.cache) config.cached.set(key, res)
             return res
