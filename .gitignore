@@ -7,3 +7,4 @@ build
 .nuxt/
 static/sw.js
 server/config/secret.js
+server/config/mpapp.js
