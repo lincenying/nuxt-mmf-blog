@@ -35,8 +35,10 @@ import aInput from '@/components/_input.vue'
 export default {
     name: 'backend-article-modify',
     middleware: 'admin',
-    async asyncData({store, route}, config = { limit: 99 }) {
+    async asyncData({store, route, req}, config = { limit: 99 }) {
+        const cookies = req && req.headers.cookie
         config.all = 1
+        config.cookies = cookies
         await store.commit('global/showBackendNav', true)
         await store.dispatch('global/category/getCategoryList', {
             ...config,

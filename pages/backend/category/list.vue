@@ -23,8 +23,10 @@ import { mapGetters } from 'vuex'
 export default {
     name: 'backend-category-list',
     middleware: 'admin',
-    async asyncData({store, route}, config = { limit: 99 }) {
+    async asyncData({store, route, req}, config = { limit: 99 }) {
+        const cookies = req && req.headers.cookie
         config.all = 1
+        config.cookies = cookies
         await store.dispatch('global/category/getCategoryList', {
             ...config,
             path: route.path

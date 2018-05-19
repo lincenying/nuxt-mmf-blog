@@ -31,7 +31,9 @@ import api from '~api'
 export default {
     name: 'backend-user-list',
     middleware: 'admin',
-    async asyncData({store, route}, config = { page: 1 }) {
+    async asyncData({store, route, req}, config = { page: 1 }) {
+        const cookies = req && req.headers.cookie
+        config.cookies = cookies
         await store.dispatch('backend/user/getUserList', {
             ...config,
             path: route.path

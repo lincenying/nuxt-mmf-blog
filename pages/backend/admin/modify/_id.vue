@@ -31,10 +31,12 @@ import aInput from '@/components/_input.vue'
 export default {
     name: 'backend-admin-modify',
     middleware: 'admin',
-    async asyncData({store, route}) {
+    async asyncData({store, route, req}) {
+        const cookies = req && req.headers.cookie
         await store.dispatch('backend/admin/getAdminItem', {
             id: route.params.id,
-            path: route.path
+            path: route.path,
+            cookies
         })
     },
     data() {

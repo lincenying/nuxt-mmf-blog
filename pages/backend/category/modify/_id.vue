@@ -25,8 +25,10 @@ import aInput from '@/components/_input.vue'
 export default {
     name: 'backend-category-modify',
     middleware: 'admin',
-    async asyncData({store, route}) {
+    async asyncData({store, route, req}) {
+        const cookies = req && req.headers.cookie
         await store.dispatch('global/category/getCategoryItem', {
+            cookies,
             path: route.path,
             id: route.params.id
         })
