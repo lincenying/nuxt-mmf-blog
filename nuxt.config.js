@@ -1,4 +1,6 @@
 const join = require('path').join
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
 module.exports = {
     head: {
@@ -38,7 +40,40 @@ module.exports = {
         }
     },
     build: {
-        vendor: ['axios'],
+        optimization: {
+            runtimeChunk: {
+                name: 'manifest'
+            },
+            splitChunks: {
+                cacheGroups: {
+                    vendor: {
+                        test: /[\\/]node_modules[\\/]/,
+                        name: 'vendors',
+                        priority: -20,
+                        chunks: 'all'
+                    }
+                }
+            },
+            minimizer: [
+                new UglifyJsPlugin({
+                    uglifyOptions: {
+                        compress: {
+                            warnings: false
+                        }
+                    },
+                    cache: true,
+                    sourceMap: true,
+                    parallel: true
+                }),
+                new OptimizeCSSAssetsPlugin({
+                    cssProcessorOptions: {
+                        discardComments: { removeAll: true }
+                        // 避免 cssnano 重新计算 z-index
+                        // safe: true
+                    }
+                })
+            ]
+        },
         extend(config, { isClient }) {
             if (isClient) {
                 config.resolve.alias['~api'] = join(__dirname, 'api/index-client.js')
@@ -47,7 +82,15 @@ module.exports = {
             }
         },
         extractCSS: true,
-        babel: {}
+        babel: {},
+        filenames: {
+            app: ({ isDev }) => isDev ? '[name].js' : '[name].[chunkhash:7].js',
+            chunk: ({ isDev }) => isDev ? '[name].js' : '[name].[chunkhash:7].js',
+            css: ({ isDev }) => isDev ? '[name].js' : '[name].[contenthash:7].css',
+            img: ({ isDev }) => isDev ? '[path][name].[ext]' : 'img/[hash:7].[ext]',
+            font: ({ isDev }) => isDev ? '[path][name].[ext]' : 'fonts/[hash:7].[ext]',
+            video: ({ isDev }) => isDev ? '[path][name].[ext]' : 'videos/[hash:7].[ext]'
+        }
     },
     cache: {
         max: 1000,
