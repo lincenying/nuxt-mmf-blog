@@ -1,16 +1,20 @@
 <template>
-    <div v-show="scrollTop > 500" class="back-top">
-        <a @click="handleBackTop" href="javascript:;"></a>
-    </div>
+    <div v-show="scrollTop > 500" class="back-top"><a @click="handleBackTop" href="javascript:;"></a></div>
 </template>
 
-<script lang="babel">
+<script>
 export default {
     name: 'back-top',
     data() {
         return {
             scrollTop: 0
         }
+    },
+    mounted() {
+        window.addEventListener('scroll', this.scrolling)
+    },
+    beforeDestroy() {
+        window.removeEventListener('scroll', this.scrolling)
     },
     methods: {
         scrolling() {
@@ -31,12 +35,6 @@ export default {
                 // document.body.scrollTop = top
             }, 20)
         }
-    },
-    mounted() {
-        window.addEventListener('scroll', this.scrolling)
-    },
-    beforeDestroy() {
-        window.removeEventListener('scroll', this.scrolling)
-    },
+    }
 }
 </script>

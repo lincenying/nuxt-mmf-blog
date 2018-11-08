@@ -17,16 +17,14 @@
     </div>
 </template>
 
-<script lang="babel">
+<script>
 import { mapGetters } from 'vuex'
 
 export default {
     name: 'backend-category-list',
     middleware: 'admin',
-    async asyncData({store, route, req}, config = { limit: 99 }) {
-        const cookies = req && req.headers.cookie
+    async asyncData({ store, route }, config = { limit: 99 }) {
         config.all = 1
-        config.cookies = cookies
         await store.dispatch('global/category/getCategoryList', {
             ...config,
             path: route.path
@@ -40,9 +38,7 @@ export default {
     created() {
         this.$store.commit('global/showBackendNav', true)
     },
-    mounted() {
-
-    },
+    mounted() {},
     head() {
         return {
             title: '分类列表 - M.M.F 小屋',

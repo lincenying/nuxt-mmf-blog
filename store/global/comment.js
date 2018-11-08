@@ -1,4 +1,4 @@
-import api from '~api'
+import { api } from '~api'
 
 export const state = () => ({
     lists: {
@@ -10,11 +10,9 @@ export const state = () => ({
 })
 
 export const actions = {
-    async ['getCommentList']({ commit, state }, config) {
+    async ['getCommentList']({ commit, state, rootState }, config) {
         if (config.path === state.lists.path && config.page === 1) return
-        const {
-            data: { data, code }
-        } = await api.get('frontend/comment/list', { ...config, cache: true })
+        const { data, code } = await api(rootState.cookies).get('frontend/comment/list', { ...config, cache: true })
         if (data && code === 200) {
             commit('recevieCommentList', {
                 ...config,

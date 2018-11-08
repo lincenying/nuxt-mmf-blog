@@ -1,4 +1,4 @@
-import api from '~api'
+import { api } from '~api'
 
 export const state = () => ({
     lists: {
@@ -11,11 +11,11 @@ export const state = () => ({
 })
 
 export const actions = {
-    async ['getArticleList']({ commit, state }, config) {
+    async ['getArticleList']({ commit, state, rootState }, config) {
         if (state.lists.data.length > 0 && config.path === state.lists.path && config.page === 1) return
         const {
             data: { data, code }
-        } = await api.get('backend/article/list', config)
+        } = await api(rootState.cookies).get('backend/article/list', config)
         if (data && code === 200) {
             commit('receiveArticleList', {
                 ...data,
@@ -23,26 +23,20 @@ export const actions = {
             })
         }
     },
-    async ['getArticleItem'](store, config) {
-        const {
-            data: { data, code }
-        } = await api.get('backend/article/item', config)
+    async ['getArticleItem']({ rootState }, config) {
+        const { data, code } = await api(rootState.cookies).get('backend/article/item', config)
         if (data && code === 200) {
             return data
         }
     },
-    async ['deleteArticle']({ commit }, config) {
-        const {
-            data: { code }
-        } = await api.get('backend/article/delete', config)
+    async ['deleteArticle']({ commit, rootState }, config) {
+        const { code } = await api(rootState.cookies).get('backend/article/delete', config)
         if (code === 200) {
             commit('deleteArticle', config.id)
         }
     },
-    async ['recoverArticle']({ commit }, config) {
-        const {
-            data: { code }
-        } = await api.get('backend/article/recover', config)
+    async ['recoverArticle']({ commit, rootState }, config) {
+        const { code } = await api(rootState.cookies).get('backend/article/recover', config)
         if (code === 200) {
             commit('recoverArticle', config.id)
         }

@@ -12,7 +12,8 @@
                 <div class="list-email">{{ item.email }}</div>
                 <div class="list-date">{{ item.update_date | timeYmd }}</div>
                 <div class="list-action">
-                    <router-link :to="'/backend/user/modify/' + item._id" class="badge badge-success">编辑</router-link> •
+                    <router-link :to="'/backend/user/modify/' + item._id" class="badge badge-success">编辑</router-link>
+                    •
                     <a v-if="item.is_delete" @click="recover(item._id)" href="javascript:;">恢复</a>
                     <a v-else @click="deletes(item._id)" href="javascript:;">删除</a>
                 </div>
@@ -24,16 +25,14 @@
     </div>
 </template>
 
-<script lang="babel">
+<script>
 import { mapGetters } from 'vuex'
-import api from '~api'
+import { api } from '~api'
 
 export default {
     name: 'backend-user-list',
     middleware: 'admin',
-    async asyncData({store, route, req}, config = { page: 1 }) {
-        const cookies = req && req.headers.cookie
-        config.cookies = cookies
+    async asyncData({ store, route }, config = { page: 1 }) {
         await store.dispatch('backend/user/getUserList', {
             ...config,
             path: route.path
@@ -44,12 +43,13 @@ export default {
             user: 'backend/user/getUserList'
         })
     },
+    mounted() {},
     methods: {
         loadMore(page = this.user.page + 1) {
-            this.$options.asyncData({store: this.$store, route: this.$route}, {page})
+            this.$options.asyncData({ store: this.$store, route: this.$route }, { page })
         },
         async recover(id) {
-            const { data: { code, message} } = await api.get('backend/user/recover', { id })
+            const { code, message } = await api().get('backend/user/recover', { id })
             if (code === 200) {
                 this.$store.dispatch('global/showMsg', {
                     type: 'success',
@@ -59,7 +59,7 @@ export default {
             }
         },
         async deletes(id) {
-            const { data: { code, message} } = await api.get('backend/user/delete', { id })
+            const { code, message } = await api().get('backend/user/delete', { id })
             if (code === 200) {
                 this.$store.dispatch('global/showMsg', {
                     type: 'success',
@@ -68,9 +68,6 @@ export default {
                 this.$store.commit('backend/user/deleteUser', id)
             }
         }
-    },
-    mounted() {
-
     },
     head() {
         return {

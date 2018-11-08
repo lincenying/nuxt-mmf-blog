@@ -4,7 +4,7 @@
             <div class="comment-items-wrap">
                 <div v-for="item in comments.data" :key="item._id" class="comment-item">
                     <a href="javascript:;" class="comment-author-avatar-link">
-                        <img src="//ww2.sinaimg.cn/large/005uQRNCgw1f4ij3d8m05j301s01smwx.jpg" alt="" class="avatar-img">
+                        <img src="//ww2.sinaimg.cn/large/005uQRNCgw1f4ij3d8m05j301s01smwx.jpg" alt="" class="avatar-img" />
                     </a>
                     <div class="comment-content-wrap">
                         <span class="comment-author-wrap">
@@ -26,18 +26,16 @@
     </div>
 </template>
 
-<script lang="babel">
+<script>
 import { mapGetters } from 'vuex'
-import api from '~api'
+import { api } from '~api'
 
 export default {
     name: 'backend-article-comment',
     middleware: 'admin',
-    async asyncData({store, route, req}, config = { page: 1 }) {
-        const cookies = req && req.headers.cookie
+    async asyncData({ store, route }, config = { page: 1 }) {
         config.all = 1
         config.id = route.params.id
-        config.cookies = cookies
         await store.dispatch('global/comment/getCommentList', {
             ...config,
             path: route.path
@@ -48,12 +46,13 @@ export default {
             comments: 'global/comment/getCommentList'
         })
     },
+    mounted() {},
     methods: {
         loadMore(page = this.comments.page + 1) {
-            this.$options.asyncData({store: this.$store, route: this.$route}, {page})
+            this.$options.asyncData({ store: this.$store, route: this.$route }, { page })
         },
         async recover(id) {
-            const { data: { code, message} } = await api.get('frontend/comment/recover', { id })
+            const { code, message } = await api().get('frontend/comment/recover', { id })
             if (code === 200) {
                 this.$store.dispatch('global/showMsg', {
                     type: 'success',
@@ -63,7 +62,7 @@ export default {
             }
         },
         async deletes(id) {
-            const { data: { code, message} } = await api.get('frontend/comment/delete', { id })
+            const { code, message } = await api().get('frontend/comment/delete', { id })
             if (code === 200) {
                 this.$store.dispatch('global/showMsg', {
                     type: 'success',
@@ -72,9 +71,6 @@ export default {
                 this.$store.commit('global/comment/deleteComment', id)
             }
         }
-    },
-    mounted() {
-
     },
     head() {
         return {

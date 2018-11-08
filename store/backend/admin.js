@@ -1,4 +1,4 @@
-import api from '~api'
+import { api } from '~api'
 
 export const state = () => ({
     lists: {
@@ -15,11 +15,9 @@ export const state = () => ({
 })
 
 export const actions = {
-    async ['getAdminList']({ commit, state }, config) {
+    async ['getAdminList']({ commit, state, rootState }, config) {
         if (state.lists.data.length > 0 && config.path === state.lists.path && config.page === 1) return
-        const {
-            data: { data, code }
-        } = await api.get('backend/admin/list', { ...config, cache: true })
+        const { data, code } = await api(rootState.cookies).get('backend/admin/list', { ...config, cache: true })
         if (data && code === 200) {
             commit('receiveAdminList', {
                 ...data,
@@ -28,10 +26,8 @@ export const actions = {
             })
         }
     },
-    async ['getAdminItem']({ commit }, config) {
-        const {
-            data: { data, code }
-        } = await api.get('backend/admin/item', config)
+    async ['getAdminItem']({ commit, rootState }, config) {
+        const { data, code } = await api(rootState.cookies).get('backend/admin/item', config)
         if (data && code === 200) {
             commit('receiveAdminItem', {
                 data,

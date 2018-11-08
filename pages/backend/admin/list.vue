@@ -12,7 +12,8 @@
                 <div class="list-email">{{ item.email }}</div>
                 <div class="list-date">{{ item.update_date | timeYmd }}</div>
                 <div class="list-action">
-                    <router-link :to="'/backend/admin/modify/' + item._id" class="badge badge-success">编辑</router-link> •
+                    <router-link :to="'/backend/admin/modify/' + item._id" class="badge badge-success">编辑</router-link>
+                    •
                     <a v-if="item.is_delete" @click="recover(item._id)" href="javascript:;">恢复</a>
                     <a v-else @click="deletes(item._id)" href="javascript:;">删除</a>
                 </div>
@@ -24,16 +25,14 @@
     </div>
 </template>
 
-<script lang="babel">
-import api from '~api'
+<script>
+import { api } from '~api'
 import { mapGetters } from 'vuex'
 
 export default {
     name: 'backend-admin-list',
     middleware: 'admin',
-    async asyncData({store, route, req}, config = { page: 1}) {
-        const cookies = req && req.headers.cookie
-        config.cookies = cookies
+    async asyncData({ store, route }, config = { page: 1 }) {
         await store.dispatch('backend/admin/getAdminList', {
             ...config,
             path: route.path
@@ -44,12 +43,13 @@ export default {
             admin: 'backend/admin/getAdminList'
         })
     },
+    mounted() {},
     methods: {
         loadMore(page = this.admin.page + 1) {
-            this.$options.asyncData({store: this.$store}, {page})
+            this.$options.asyncData({ store: this.$store }, { page })
         },
         async recover(id) {
-            const { data: { code, message} } = await api.get('backend/admin/recover', { id })
+            const { code, message } = await api().get('backend/admin/recover', { id })
             if (code === 200) {
                 this.$store.dispatch('global/showMsg', {
                     type: 'success',
@@ -59,7 +59,7 @@ export default {
             }
         },
         async deletes(id) {
-            const { data: { code, message} } = await api.get('backend/admin/delete', { id })
+            const { code, message } = await api().get('backend/admin/delete', { id })
             if (code === 200) {
                 this.$store.dispatch('global/showMsg', {
                     type: 'success',
@@ -68,9 +68,6 @@ export default {
                 this.$store.commit('backend/admin/deleteAdmin', id)
             }
         }
-    },
-    mounted() {
-
     },
     head() {
         return {

@@ -2,7 +2,7 @@
     <div class="settings-main card">
         <div class="settings-main-content">
             <a-input title="标题">
-                <input type="text" v-model="form.title" placeholder="标题" class="base-input" name="title">
+                <input type="text" v-model="form.title" placeholder="标题" class="base-input" name="title" />
                 <span class="input-info error">请输入标题</span>
             </a-input>
             <a-input title="分类" :classes="'select-item-wrap'">
@@ -26,24 +26,25 @@
     </div>
 </template>
 
-<script lang="babel">
+<script>
 /* global modifyEditor */
 import { mapGetters } from 'vuex'
-import api from '~api'
+import { api } from '~api'
 import aInput from '@/components/_input.vue'
 
 export default {
     name: 'backend-article-modify',
     middleware: 'admin',
-    async asyncData({store, route, req}, config = { limit: 99 }) {
-        const cookies = req && req.headers.cookie
+    async asyncData({ store, route }, config = { limit: 99 }) {
         config.all = 1
-        config.cookies = cookies
         await store.commit('global/showBackendNav', true)
         await store.dispatch('global/category/getCategoryList', {
             ...config,
             path: route.path
         })
+    },
+    components: {
+        aInput
     },
     data() {
         return {
@@ -57,12 +58,53 @@ export default {
             }
         }
     },
-    components: {
-        aInput
-    },
     computed: {
         ...mapGetters({
             category: 'global/category/getCategoryList'
+        })
+    },
+    watch: {
+        'form.category'(val) {
+            const obj = this.category.find(item => item._id === val)
+            this.form.category_name = obj.cate_name
+        }
+    },
+    async mounted() {
+        const data = await this.$store.dispatch('backend/article/getArticleItem', { id: this.$route.params.id })
+        this.form.title = data.title
+        this.form.category_old = data.category
+        this.form.category = data.category
+        this.form.content = data.content
+        // eslint-disable-next-line
+        window.modifyEditor = editormd("modify-content", {
+            width: '100%',
+            height: 500,
+            markdown: data.content,
+            placeholder: '请输入内容...',
+            path: '/editor.md/lib/',
+            toolbarIcons() {
+                return [
+                    'bold',
+                    'italic',
+                    'quote',
+                    '|',
+                    'list-ul',
+                    'list-ol',
+                    'hr',
+                    '|',
+                    'link',
+                    'reference-link',
+                    'image',
+                    'code',
+                    'table',
+                    '|',
+                    'watch',
+                    'preview',
+                    'fullscreen'
+                ]
+            },
+            watch: false,
+            saveHTMLToTextarea: true
         })
     },
     methods: {
@@ -73,7 +115,7 @@ export default {
                 return
             }
             this.form.content = content
-            const { data: { message, code, data} } = await api.post('backend/article/modify', this.form)
+            const { code, message, data } = await api().post('backend/article/modify', this.form)
             if (code === 200) {
                 this.$store.dispatch('global/showMsg', {
                     type: 'success',
@@ -82,37 +124,6 @@ export default {
                 this.$store.commit('backend/article/updateArticleItem', data)
                 this.$router.push('/backend/article/list')
             }
-        }
-    },
-    async mounted() {
-        const data = await this.$store.dispatch('backend/article/getArticleItem', {id: this.$route.params.id})
-        this.form.title = data.title
-        this.form.category_old = data.category
-        this.form.category = data.category
-        this.form.content = data.content
-        // eslint-disable-next-line
-        window.modifyEditor = editormd("modify-content", {
-            width: "100%",
-            height: 500,
-            markdown: data.content,
-            placeholder: '请输入内容...',
-            path: '/editor.md/lib/',
-            toolbarIcons() {
-                return [
-                    "bold", "italic", "quote", "|",
-                    "list-ul", "list-ol", "hr", "|",
-                    "link", "reference-link", "image", "code", "table", "|",
-                    "watch", "preview", "fullscreen"
-                ]
-            },
-            watch : false,
-            saveHTMLToTextarea : true
-        })
-    },
-    watch: {
-        'form.category'(val) {
-            const obj = this.category.find(item => item._id === val)
-            this.form.category_name = obj.cate_name
         }
     },
     head() {

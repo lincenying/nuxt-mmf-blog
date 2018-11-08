@@ -1,4 +1,4 @@
-import api from '~api'
+import { api } from '~api'
 
 export const state = () => ({
     lists: {
@@ -15,11 +15,9 @@ export const state = () => ({
 })
 
 export const actions = {
-    async ['getUserList']({ commit, state }, config) {
+    async ['getUserList']({ commit, state, rootState }, config) {
         if (state.lists.data.length > 0 && config.path === state.lists.path && config.page === 1) return
-        const {
-            data: { data, code }
-        } = await api.get('backend/user/list', { ...config, cache: true })
+        const { data, code } = await api(rootState.cookies).get('backend/user/list', { ...config, cache: true })
         if (data && code === 200) {
             commit('receiveUserList', {
                 ...data,
@@ -27,10 +25,8 @@ export const actions = {
             })
         }
     },
-    async ['getUserItem']({ commit }, config) {
-        const {
-            data: { data, code }
-        } = await api.get('backend/user/item', config)
+    async ['getUserItem']({ commit, rootState }, config) {
+        const { data, code } = await api(rootState.cookies).get('backend/user/item', config)
         if (data && code === 200) {
             commit('receiveUserItem', {
                 data,

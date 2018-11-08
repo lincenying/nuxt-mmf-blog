@@ -2,15 +2,15 @@
     <div class="settings-main card">
         <div class="settings-main-content">
             <a-input title="昵称">
-                <input type="text" v-model="form.username" placeholder="昵称" class="base-input" name="username">
+                <input type="text" v-model="form.username" placeholder="昵称" class="base-input" name="username" />
                 <span class="input-info error">请输入昵称</span>
             </a-input>
             <a-input title="邮箱">
-                <input type="text" v-model="form.email" placeholder="邮箱" class="base-input" name="email">
+                <input type="text" v-model="form.email" placeholder="邮箱" class="base-input" name="email" />
                 <span class="input-info error">请输入邮箱</span>
             </a-input>
             <a-input title="密码">
-                <input type="password" v-model="form.password" placeholder="密码" class="base-input" name="password">
+                <input type="password" v-model="form.password" placeholder="密码" class="base-input" name="password" />
                 <span class="input-info error">请输入密码</span>
             </a-input>
         </div>
@@ -21,21 +21,22 @@
     </div>
 </template>
 
-<script lang="babel">
+<script>
 import { mapGetters } from 'vuex'
-import api from '~api'
+import { api } from '~api'
 import aInput from '@/components/_input.vue'
 
 export default {
     name: 'backend-user-modify',
     middleware: 'admin',
-    async asyncData({store, route, req}) {
-        const cookies = req && req.headers.cookie
+    async asyncData({ store, route }) {
         await store.dispatch('backend/user/getUserItem', {
-            cookies,
             id: route.params.id,
             path: route.path
         })
+    },
+    components: {
+        aInput
     },
     data() {
         return {
@@ -47,29 +48,15 @@ export default {
             }
         }
     },
-    components: {
-        aInput
-    },
     computed: {
         ...mapGetters({
             item: 'backend/user/getUserItem'
         })
     },
-    methods: {
-        async modify() {
-            if (!this.form.username || !this.form.email) {
-                this.$store.dispatch('global/showMsg', '请将表单填写完整!')
-                return
-            }
-            const { data: { message, code, data} } = await api.post('backend/user/modify', this.form)
-            if (code === 200) {
-                this.$store.dispatch('global/showMsg', {
-                    type: 'success',
-                    content: message
-                })
-                this.$store.commit('backend/user/updateUserItem', data)
-                this.$router.push('/backend/user/list')
-            }
+    watch: {
+        item(val) {
+            this.form.username = val.data.username
+            this.form.email = val.data.email
         }
     },
     created() {
@@ -79,10 +66,21 @@ export default {
         this.form.username = this.item.data.username
         this.form.email = this.item.data.email
     },
-    watch: {
-        item(val) {
-            this.form.username = val.data.username
-            this.form.email = val.data.email
+    methods: {
+        async modify() {
+            if (!this.form.username || !this.form.email) {
+                this.$store.dispatch('global/showMsg', '请将表单填写完整!')
+                return
+            }
+            const { code, message, data } = await api().post('backend/user/modify', this.form)
+            if (code === 200) {
+                this.$store.dispatch('global/showMsg', {
+                    type: 'success',
+                    content: message
+                })
+                this.$store.commit('backend/user/updateUserItem', data)
+                this.$router.push('/backend/user/list')
+            }
         }
     },
     head() {

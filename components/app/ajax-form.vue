@@ -1,66 +1,64 @@
 <template>
-    <form :action="action" :method="method" :enctype="enctype" @submit.prevent="handleAjaxFormSubmit">
-        <slot></slot>
-    </form>
+    <form :action="action" :method="method" :enctype="enctype" @submit.prevent="handleAjaxFormSubmit"><slot></slot></form>
 </template>
-<script lang="babel">
+<script>
 export default {
     props: {
-        'action' : {
-            type    : String,
+        action: {
+            type: String,
             required: true
         },
-        'method': {
+        method: {
             type: String,
             default() {
                 return 'POST'
             }
         },
-        'enctype': {
+        enctype: {
             type: String,
             default() {
                 return 'multipart/form-data'
             }
         },
-        'responsetype': {
+        responsetype: {
             type: String,
             default() {
                 return 'json'
             }
         },
-        'before': {
+        before: {
             type: Function,
             default() {
-                return function(){}
+                return function() {}
             }
         },
-        'error': {
+        error: {
             type: Function,
             default() {
-                return function(){}
+                return function() {}
             }
         },
-        'complete': {
+        complete: {
             type: Function,
             default() {
-                return function(){}
+                return function() {}
             }
         },
-        'progress': {
+        progress: {
             type: Function,
             default() {
-                return function(){}
+                return function() {}
             }
         },
-        'after': {
+        after: {
             type: Function,
             default() {
-                return function(){}
+                return function() {}
             }
         }
     },
     methods: {
-        handleAjaxFormSubmit () {
+        handleAjaxFormSubmit() {
             this.before()
             var handleError = err => {
                 this.error(err)
@@ -81,12 +79,12 @@ export default {
             }
             var handleProgress = evt => {
                 if (evt.lengthComputable) {
-                    evt.percent = evt.loaded / evt.total * 100
+                    evt.percent = (evt.loaded / evt.total) * 100
                     this.progress(evt)
                 }
             }
             xhr.open(this.method, this.action, true)
-            xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest")
+            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest')
             xhr.setRequestHeader('Authorization', 'Basic dGVzdDpwYXNzd2Q=')
             xhr.responseType = this.responsetype
             if (xhr.upload) xhr.upload.addEventListener('progress', handleProgress)

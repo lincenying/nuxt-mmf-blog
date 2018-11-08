@@ -70,8 +70,8 @@
     </div>
 </template>
 
-<script lang="babel">
+<script>
 export default {
-    props: ['loading'],
+    props: ['loading']
 }
 </script>

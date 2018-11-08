@@ -1,3 +1,4 @@
+/* eslint-disable no-confusing-arrow */
 const join = require('path').join
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
@@ -26,10 +27,7 @@ module.exports = {
             },
             { hid: 'msapplication-TileColor', name: 'msapplication-TileColor', content: '#000000' }
         ],
-        script: [
-            { src: '//apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js' },
-            { src: '/static/editor.md/editormd.min.js' }
-        ]
+        script: [{ src: '//apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js' }, { src: '/static/editor.md/editormd.min.js' }]
     },
     render: {
         bundleRenderer: {
@@ -84,12 +82,12 @@ module.exports = {
         extractCSS: true,
         babel: {},
         filenames: {
-            app: ({ isDev }) => isDev ? '[name].js' : '[name].[chunkhash:7].js',
-            chunk: ({ isDev }) => isDev ? '[name].js' : '[name].[chunkhash:7].js',
-            css: ({ isDev }) => isDev ? '[name].js' : '[name].[contenthash:7].css',
-            img: ({ isDev }) => isDev ? '[path][name].[ext]' : 'img/[hash:7].[ext]',
-            font: ({ isDev }) => isDev ? '[path][name].[ext]' : 'fonts/[hash:7].[ext]',
-            video: ({ isDev }) => isDev ? '[path][name].[ext]' : 'videos/[hash:7].[ext]'
+            app: ({ isDev }) => (isDev ? '[name].js' : '[name].[chunkhash:7].js'),
+            chunk: ({ isDev }) => (isDev ? '[name].js' : '[name].[chunkhash:7].js'),
+            css: ({ isDev }) => (isDev ? '[name].js' : '[name].[contenthash:7].css'),
+            img: ({ isDev }) => (isDev ? '[path][name].[ext]' : 'img/[hash:7].[ext]'),
+            font: ({ isDev }) => (isDev ? '[path][name].[ext]' : 'fonts/[hash:7].[ext]'),
+            video: ({ isDev }) => (isDev ? '[path][name].[ext]' : 'videos/[hash:7].[ext]')
         }
     },
     cache: {

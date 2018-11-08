@@ -2,7 +2,7 @@
     <div class="settings-main card">
         <div class="settings-main-content">
             <a-input title="标题">
-                <input type="text" v-model="form.title" placeholder="标题" class="base-input" name="title">
+                <input type="text" v-model="form.title" placeholder="标题" class="base-input" name="title" />
                 <span class="input-info error">请输入标题</span>
             </a-input>
             <a-input title="分类" :classes="'select-item-wrap'">
@@ -19,29 +19,28 @@
                 </div>
             </div>
         </div>
-        <div class="settings-footer clearfix">
-            <a @click="insert" href="javascript:;" class="btn btn-yellow">添加文章</a>
-        </div>
+        <div class="settings-footer clearfix"><a @click="insert" href="javascript:;" class="btn btn-yellow">添加文章</a></div>
     </div>
 </template>
 
-<script lang="babel">
+<script>
 /* global postEditor */
 import { mapGetters } from 'vuex'
-import api from '~api'
+import { api } from '~api'
 import aInput from '@/components/_input.vue'
 
 export default {
     name: 'backend-article-insert',
     middleware: 'admin',
-    async asyncData({store, route, req}, config = { limit: 99 }) {
-        const cookies = req && req.headers.cookie
+    async asyncData({ store, route }, config = { limit: 99 }) {
         config.all = 1
-        config.cookies = cookies
         await store.dispatch('global/category/getCategoryList', {
             ...config,
             path: route.path
         })
+    },
+    components: {
+        aInput
     },
     data() {
         return {
@@ -52,12 +51,42 @@ export default {
             }
         }
     },
-    components: {
-        aInput
-    },
     computed: {
         ...mapGetters({
             category: 'global/category/getCategoryList'
+        })
+    },
+    mounted() {
+        // eslint-disable-next-line
+        window.postEditor = editormd("post-content", {
+            width: '100%',
+            height: 500,
+            markdown: '',
+            placeholder: '请输入内容...',
+            path: '/editor.md/lib/',
+            toolbarIcons() {
+                return [
+                    'bold',
+                    'italic',
+                    'quote',
+                    '|',
+                    'list-ul',
+                    'list-ol',
+                    'hr',
+                    '|',
+                    'link',
+                    'reference-link',
+                    'image',
+                    'code',
+                    'table',
+                    '|',
+                    'watch',
+                    'preview',
+                    'fullscreen'
+                ]
+            },
+            watch: false,
+            saveHTMLToTextarea: true
         })
     },
     methods: {
@@ -68,7 +97,7 @@ export default {
                 return
             }
             this.form.content = content
-            const { data: { message, code, data} } = await api.post('backend/article/insert', this.form)
+            const { code, message, data } = await api().post('backend/article/insert', this.form)
             if (code === 200) {
                 this.$store.dispatch('global/showMsg', {
                     type: 'success',
@@ -78,26 +107,6 @@ export default {
                 this.$router.push('/backend/article/list')
             }
         }
-    },
-    mounted() {
-        // eslint-disable-next-line
-        window.postEditor = editormd("post-content", {
-            width: "100%",
-            height: 500,
-            markdown: "",
-            placeholder: '请输入内容...',
-            path: '/editor.md/lib/',
-            toolbarIcons() {
-                return [
-                    "bold", "italic", "quote", "|",
-                    "list-ul", "list-ol", "hr", "|",
-                    "link", "reference-link", "image", "code", "table", "|",
-                    "watch", "preview", "fullscreen"
-                ]
-            },
-            watch : false,
-            saveHTMLToTextarea : true
-        })
     },
     head() {
         return {

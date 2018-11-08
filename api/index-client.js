@@ -35,12 +35,12 @@ function checkCode(res) {
     } else if (res.data.code !== 200) {
         showMsg(res.data.message)
     }
-    return res
+    return res && res.data
 }
 
-export default {
-    post(url, data) {
-        return axios({
+export const api = () => ({
+    async post(url, data) {
+        const response = await axios({
             method: 'post',
             url: config.api + url,
             data: qs.stringify(data),
@@ -50,11 +50,11 @@ export default {
                 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
             }
         })
-            .then(checkStatus)
-            .then(checkCode)
+        const res = await checkStatus(response)
+        return checkCode(res)
     },
-    get(url, params) {
-        return axios({
+    async get(url, params) {
+        const response = await axios({
             method: 'get',
             url: config.api + url,
             params,
@@ -63,7 +63,7 @@ export default {
                 'X-Requested-With': 'XMLHttpRequest'
             }
         })
-            .then(checkStatus)
-            .then(checkCode)
+        const res = await checkStatus(response)
+        return checkCode(res)
     }
-}
+})

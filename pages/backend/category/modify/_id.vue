@@ -2,11 +2,11 @@
     <div class="settings-main card">
         <div class="settings-main-content">
             <a-input title="分类名称">
-                <input type="text" v-model="form.cate_name" placeholder="分类名称" class="base-input" name="cate_name">
+                <input type="text" v-model="form.cate_name" placeholder="分类名称" class="base-input" name="cate_name" />
                 <span class="input-info error">请输入分类名称</span>
             </a-input>
             <a-input title="分类排序">
-                <input type="text" v-model="form.cate_order" placeholder="分类排序" class="base-input" name="cate_order">
+                <input type="text" v-model="form.cate_order" placeholder="分类排序" class="base-input" name="cate_order" />
                 <span class="input-info error">请输入分类排序</span>
             </a-input>
         </div>
@@ -17,21 +17,22 @@
     </div>
 </template>
 
-<script lang="babel">
-import api from '~api'
+<script>
+import { api } from '~api'
 import { mapGetters } from 'vuex'
 import aInput from '@/components/_input.vue'
 
 export default {
     name: 'backend-category-modify',
     middleware: 'admin',
-    async asyncData({store, route, req}) {
-        const cookies = req && req.headers.cookie
+    async asyncData({ store, route }) {
         await store.dispatch('global/category/getCategoryItem', {
-            cookies,
             path: route.path,
             id: route.params.id
         })
+    },
+    components: {
+        aInput
     },
     data() {
         return {
@@ -42,13 +43,20 @@ export default {
             }
         }
     },
-    components: {
-        aInput
-    },
     computed: {
         ...mapGetters({
             item: 'global/category/getCategoryItem'
         })
+    },
+    watch: {
+        item(val) {
+            this.form.cate_name = val.data.cate_name
+            this.form.cate_order = val.data.cate_order
+        }
+    },
+    mounted() {
+        this.form.cate_name = this.item.data.cate_name
+        this.form.cate_order = this.item.data.cate_order
     },
     methods: {
         async modify() {
@@ -56,7 +64,7 @@ export default {
                 this.$store.dispatch('global/showMsg', '请将表单填写完整!')
                 return
             }
-            const { data: { message, code, data} } = await api.post('backend/category/modify', this.form)
+            const { code, message, data } = await api().post('backend/category/modify', this.form)
             if (code === 200 && data) {
                 this.$store.dispatch('global/showMsg', {
                     type: 'success',
@@ -65,16 +73,6 @@ export default {
                 this.$store.commit('global/category/updateCategoryItem', data)
                 this.$router.push('/backend/category/list')
             }
-        }
-    },
-    mounted() {
-        this.form.cate_name = this.item.data.cate_name
-        this.form.cate_order = this.item.data.cate_order
-    },
-    watch: {
-        item(val) {
-            this.form.cate_name = val.data.cate_name
-            this.form.cate_order = val.data.cate_order
         }
     },
     head() {

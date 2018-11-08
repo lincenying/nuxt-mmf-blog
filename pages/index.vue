@@ -6,7 +6,8 @@
                 <template v-else-if="topics.data.length > 0">
                     <topics-item v-for="item in topics.data" :item="item" :key="item._id"></topics-item>
                     <div class="load-more-wrap">
-                        <a v-if="topics.hasNext" @click="loadMore()" href="javascript:;" class="load-more">更多
+                        <a v-if="topics.hasNext" @click="loadMore()" href="javascript:;" class="load-more">
+                            更多
                             <i class="icon icon-circle-loading"></i>
                         </a>
                     </div>
@@ -20,7 +21,7 @@
         </div>
     </div>
 </template>
-<script lang="babel">
+<script>
 import { mapGetters } from 'vuex'
 import topicsItem from '@/components/topics-item.vue'
 import topicsItemNone from '@/components/topics-item-none.vue'
@@ -29,17 +30,23 @@ import trending from '@/components/aside-trending.vue'
 
 export default {
     name: 'frontend-index',
-    async asyncData({store, route, req}, config = { page: 1}) {
-        const cookies = req && req.headers.cookie
-        const {params: {id, key, by}, fullPath} = route
+    transition: 'slide-right',
+    async asyncData({ store, route }, config = { page: 1 }) {
+        const {
+            params: { id, key, by },
+            fullPath
+        } = route
         await Promise.all([
             store.dispatch('global/category/getCategoryList'),
             store.dispatch('frontend/article/getTrending'),
-            store.dispatch('frontend/article/getArticleList', { ...config, limit: 10, id, path: fullPath, key, by, cookies })
+            store.dispatch('frontend/article/getArticleList', { ...config, limit: 10, id, path: fullPath, key, by })
         ])
     },
     components: {
-        topicsItem, topicsItemNone, category, trending
+        topicsItem,
+        topicsItemNone,
+        category,
+        trending
     },
     computed: {
         ...mapGetters({
@@ -50,12 +57,12 @@ export default {
     },
     methods: {
         async loadMore(page = this.topics.page + 1) {
-            await this.$options.asyncData({store: this.$store, route: this.$route}, { page })
+            await this.$options.asyncData({ store: this.$store, route: this.$route }, { page })
         }
     },
     head() {
         var title = 'M.M.F 小屋'
-        const {id, key, by} = this.$route.params
+        const { id, key, by } = this.$route.params
         if (id) {
             const obj = this.category.find(item => item._id === id)
             if (obj) {
