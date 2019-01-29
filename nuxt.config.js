@@ -84,7 +84,7 @@ module.exports = {
         filenames: {
             app: ({ isDev }) => (isDev ? '[name].js' : '[name].[chunkhash:7].js'),
             chunk: ({ isDev }) => (isDev ? '[name].js' : '[name].[chunkhash:7].js'),
-            css: ({ isDev }) => (isDev ? '[name].js' : '[name].[contenthash:7].css'),
+            css: ({ isDev }) => (isDev ? '[name].css' : '[name].[contenthash:7].css'),
             img: ({ isDev }) => (isDev ? '[path][name].[ext]' : 'img/[hash:7].[ext]'),
             font: ({ isDev }) => (isDev ? '[path][name].[ext]' : 'fonts/[hash:7].[ext]'),
             video: ({ isDev }) => (isDev ? '[path][name].[ext]' : 'videos/[hash:7].[ext]')
