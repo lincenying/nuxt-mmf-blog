@@ -1,4 +1,5 @@
 /* eslint-disable no-confusing-arrow */
+const lruCache = require('lru-cache')
 const join = require('path').join
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
@@ -31,7 +32,7 @@ module.exports = {
     },
     render: {
         bundleRenderer: {
-            cache: require('lru-cache')({
+            cache: new lruCache({
                 max: 1000,
                 maxAge: 1000 * 60 * 15
             })
@@ -56,7 +57,7 @@ module.exports = {
                 new UglifyJsPlugin({
                     uglifyOptions: {
                         compress: {
-                            warnings: false
+                            // warnings: false
                         }
                     },
                     cache: true,
