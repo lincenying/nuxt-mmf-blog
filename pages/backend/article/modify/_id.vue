@@ -35,14 +35,6 @@ import aInput from '@/components/_input.vue'
 export default {
     name: 'backend-article-modify',
     middleware: 'admin',
-    async asyncData({ store, route }, config = { limit: 99 }) {
-        config.all = 1
-        await store.commit('global/showBackendNav', true)
-        await store.dispatch('global/category/getCategoryList', {
-            ...config,
-            path: route.path
-        })
-    },
     components: {
         aInput
     },
@@ -68,6 +60,14 @@ export default {
             const obj = this.category.find(item => item._id === val)
             this.form.category_name = obj.cate_name
         }
+    },
+    async asyncData({ store, route }, config = { limit: 99 }) {
+        config.all = 1
+        await store.commit('global/showBackendNav', true)
+        await store.dispatch('global/category/getCategoryList', {
+            ...config,
+            path: route.path
+        })
     },
     async mounted() {
         const data = await this.$store.dispatch('backend/article/getArticleItem', { id: this.$route.params.id })

@@ -25,21 +25,13 @@
 import { mapGetters } from 'vuex'
 import { api } from '~api'
 
-import backendMenu from '@/components/backend-menu.vue'
 import aInput from '@/components/_input.vue'
 
 export default {
     name: 'backend-admin-modify',
     middleware: 'admin',
-    async asyncData({ store, route }) {
-        await store.dispatch('backend/admin/getAdminItem', {
-            id: route.params.id,
-            path: route.path
-        })
-    },
     components: {
-        aInput,
-        backendMenu
+        aInput
     },
     data() {
         return {
@@ -61,6 +53,12 @@ export default {
             this.form.username = val.data.username
             this.form.email = val.data.email
         }
+    },
+    async asyncData({ store, route }) {
+        await store.dispatch('backend/admin/getAdminItem', {
+            id: route.params.id,
+            path: route.path
+        })
     },
     mounted() {
         this.form.username = this.item.data.username

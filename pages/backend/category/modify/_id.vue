@@ -25,12 +25,6 @@ import aInput from '@/components/_input.vue'
 export default {
     name: 'backend-category-modify',
     middleware: 'admin',
-    async asyncData({ store, route }) {
-        await store.dispatch('global/category/getCategoryItem', {
-            path: route.path,
-            id: route.params.id
-        })
-    },
     components: {
         aInput
     },
@@ -53,6 +47,12 @@ export default {
             this.form.cate_name = val.data.cate_name
             this.form.cate_order = val.data.cate_order
         }
+    },
+    async asyncData({ store, route }) {
+        await store.dispatch('global/category/getCategoryItem', {
+            path: route.path,
+            id: route.params.id
+        })
     },
     mounted() {
         this.form.cate_name = this.item.data.cate_name

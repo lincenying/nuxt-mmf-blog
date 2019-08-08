@@ -7,7 +7,7 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 module.exports = {
     head: {
         link: [
-            { rel: 'stylesheet', href: '/static/editor.md/css/editormd.css' },
+            { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/editor.md@1.5.0/css/editormd.css' },
             { rel: 'manifest', href: '/manifest.json' },
             { rel: 'apple-touch-icon', href: '/static/img/icons/apple-touch-icon-152x152.png' }
         ],
@@ -28,7 +28,10 @@ module.exports = {
             },
             { hid: 'msapplication-TileColor', name: 'msapplication-TileColor', content: '#000000' }
         ],
-        script: [{ src: '//apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js' }, { src: '/static/editor.md/editormd.min.js' }]
+        script: [
+            { src: 'https://cdn.jsdelivr.net/npm/jquery@2.1.4/dist/jquery.min.js' },
+            { src: 'https://cdn.jsdelivr.net/npm/editor.md@1.5.0/editormd.min.js' }
+        ]
     },
     render: {
         bundleRenderer: {

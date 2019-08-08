@@ -32,15 +32,15 @@ import { api } from '~api'
 export default {
     name: 'backend-user-list',
     middleware: 'admin',
+    computed: {
+        ...mapGetters({
+            user: 'backend/user/getUserList'
+        })
+    },
     async asyncData({ store, route }, config = { page: 1 }) {
         await store.dispatch('backend/user/getUserList', {
             ...config,
             path: route.path
-        })
-    },
-    computed: {
-        ...mapGetters({
-            user: 'backend/user/getUserList'
         })
     },
     mounted() {},

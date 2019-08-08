@@ -32,13 +32,6 @@ import aInput from '@/components/_input.vue'
 export default {
     name: 'backend-article-insert',
     middleware: 'admin',
-    async asyncData({ store, route }, config = { limit: 99 }) {
-        config.all = 1
-        await store.dispatch('global/category/getCategoryList', {
-            ...config,
-            path: route.path
-        })
-    },
     components: {
         aInput
     },
@@ -54,6 +47,13 @@ export default {
     computed: {
         ...mapGetters({
             category: 'global/category/getCategoryList'
+        })
+    },
+    async asyncData({ store, route }, config = { limit: 99 }) {
+        config.all = 1
+        await store.dispatch('global/category/getCategoryList', {
+            ...config,
+            path: route.path
         })
     },
     mounted() {

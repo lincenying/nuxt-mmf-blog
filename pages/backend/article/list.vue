@@ -36,15 +36,15 @@ import { api } from '~api'
 export default {
     name: 'backend-article-list',
     middleware: 'admin',
+    computed: {
+        ...mapGetters({
+            topics: 'backend/article/getArticleList'
+        })
+    },
     async asyncData({ store, route }, config = { page: 1 }) {
         await store.dispatch('backend/article/getArticleList', {
             ...config,
             path: route.path
-        })
-    },
-    computed: {
-        ...mapGetters({
-            topics: 'backend/article/getArticleList'
         })
     },
     mounted() {},

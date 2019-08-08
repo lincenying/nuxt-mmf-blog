@@ -61,9 +61,6 @@ import trending from '@/components/aside-trending.vue'
 export default {
     name: 'frontend-about',
     transition: 'slide-left',
-    async asyncData({ store }) {
-        await store.dispatch('frontend/article/getTrending')
-    },
     components: {
         trending
     },
@@ -71,6 +68,9 @@ export default {
         ...mapGetters({
             trending: 'frontend/article/getTrending'
         })
+    },
+    async asyncData({ store }) {
+        await store.dispatch('frontend/article/getTrending')
     },
     mounted() {},
     head() {

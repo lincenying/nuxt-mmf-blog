@@ -50,6 +50,14 @@ export default {
         category,
         trending
     },
+    computed: {
+        ...mapGetters({
+            article: 'frontend/article/getArticleItem',
+            comments: 'global/comment/getCommentList',
+            category: 'global/category/getCategoryList',
+            trending: 'frontend/article/getTrending'
+        })
+    },
     async asyncData({ store, route }) {
         const {
             path,
@@ -65,14 +73,6 @@ export default {
     beforeRouteUpdate(to, from, next) {
         if (to.path !== from.path) this.$options.asyncData({ store: this.$store, route: to })
         next()
-    },
-    computed: {
-        ...mapGetters({
-            article: 'frontend/article/getArticleItem',
-            comments: 'global/comment/getCommentList',
-            category: 'global/category/getCategoryList',
-            trending: 'frontend/article/getTrending'
-        })
     },
     mounted() {
         // this.$options.asyncData({store: this.$store})

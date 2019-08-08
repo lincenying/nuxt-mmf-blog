@@ -29,12 +29,6 @@ import aInput from '@/components/_input.vue'
 export default {
     name: 'backend-user-modify',
     middleware: 'admin',
-    async asyncData({ store, route }) {
-        await store.dispatch('backend/user/getUserItem', {
-            id: route.params.id,
-            path: route.path
-        })
-    },
     components: {
         aInput
     },
@@ -58,6 +52,12 @@ export default {
             this.form.username = val.data.username
             this.form.email = val.data.email
         }
+    },
+    async asyncData({ store, route }) {
+        await store.dispatch('backend/user/getUserItem', {
+            id: route.params.id,
+            path: route.path
+        })
     },
     created() {
         this.$store.commit('global/showBackendNav', true)
