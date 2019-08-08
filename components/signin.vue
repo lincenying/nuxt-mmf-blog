@@ -23,7 +23,9 @@
 </template>
 
 <script>
+import { showMsg } from '@/utils'
 import { api } from '~api'
+
 export default {
     name: 'sign-in',
     props: ['show'],
@@ -45,16 +47,16 @@ export default {
         },
         async login() {
             if (!this.form.username || !this.form.password) {
-                this.$store.dispatch('global/showMsg', '请将表单填写完整!')
+                showMsg('请将表单填写完整!')
                 return
             }
             const { code, message } = await api().post('frontend/user/login', this.form)
             if (code === 200) {
-                this.$store.dispatch('global/showMsg', {
+                showMsg({
                     type: 'success',
                     content: message
                 })
-                this.$router.go(0)
+                window.location.reload()
             }
         }
     }

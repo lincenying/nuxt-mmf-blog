@@ -8,13 +8,13 @@ export const state = () => ({
 export const actions = {
     async ['getCategoryList']({ commit, state, rootState }, config) {
         if (state.lists.length) return
-        const { data, code } = await api(rootState.cookies).get('backend/category/list', { ...config, cache: true })
+        const { data, code } = await api(rootState.global.cookies).get('backend/category/list', { ...config, cache: true })
         if (data && code === 200) {
             commit('receiveCategoryList', data.list)
         }
     },
     async ['getCategoryItem']({ commit, rootState }, config) {
-        const { data, code } = await api(rootState.cookies).get('backend/category/item', config)
+        const { data, code } = await api(rootState.global.cookies).get('backend/category/item', config)
         if (data && code === 200) {
             commit('receiveCategoryItem', {
                 data,

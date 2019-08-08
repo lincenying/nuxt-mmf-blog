@@ -11,14 +11,8 @@
                 <span class="trending-rank-num">{{ index + 1 }}</span>
                 <router-link :to="`/article/${item._id}`" class="trending-title">{{ item.title }}</router-link>
                 <div class="trending-meta">
-                    <div class="trending-meta-item">
-                        <i class="icon icon-action-voteup"></i>
-                        {{ item.like }}
-                    </div>
-                    <div class="trending-meta-item">
-                        <i class="icon icon-action-comment"></i>
-                        {{ item.comment_count }}
-                    </div>
+                    <div class="trending-meta-item"><i class="icon icon-action-voteup"></i>{{ item.like }}</div>
+                    <div class="trending-meta-item"><i class="icon icon-action-comment"></i>{{ item.comment_count }}</div>
                 </div>
             </div>
         </div>
@@ -26,6 +20,7 @@
 </template>
 <script>
 // import Affix from '@/components/affix.vue'
+
 export default {
     name: 'aside-trending',
     components: {

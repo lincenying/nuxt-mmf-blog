@@ -35,9 +35,6 @@ export default {
             path: route.path
         })
     },
-    created() {
-        this.$store.commit('global/showBackendNav', true)
-    },
     mounted() {},
     head() {
         return {

@@ -12,7 +12,7 @@ export const state = () => ({
 export const actions = {
     async ['getCommentList']({ commit, state, rootState }, config) {
         if (config.path === state.lists.path && config.page === 1) return
-        const { data, code } = await api(rootState.cookies).get('frontend/comment/list', { ...config, cache: true })
+        const { data, code } = await api(rootState.global.cookies).get('frontend/comment/list', { ...config, cache: true })
         if (data && code === 200) {
             commit('recevieCommentList', {
                 ...config,

@@ -2,43 +2,16 @@ import axios from 'axios'
 import qs from 'qs'
 import md5 from 'md5'
 import config from './config-server'
-
-const trimStr = str => {
-    return str.replace(/(^\s*)|(\s*$)/g, '')
-}
-
-const parseCookie = cookies => {
-    let $return
-    if (typeof cookies === 'string') {
-        const arr = cookies.split(';')
-        const cookie = {}
-        arr.forEach(item => {
-            const tmp = item.split('=')
-            cookie[trimStr(tmp[0])] = trimStr(tmp[1])
-        })
-        $return = cookie
-    } else if (typeof cookies === 'object') {
-        $return = (cookies && { ...cookies }) || {}
-    }
-    return $return
-}
-
-const objToStr = cookies => {
-    let cookie = ''
-    Object.keys(cookies).forEach(item => {
-        cookie += item + '=' + cookies[item] + '; '
-    })
-    return cookie
-}
+import { objToStr } from '@/utils'
 
 export const api = cookies => {
     return {
-        cookies: parseCookie(cookies),
+        cookies,
         api: axios.create({
             baseURL: config.api,
             headers: {
                 'X-Requested-With': 'XMLHttpRequest',
-                cookie: cookies
+                cookie: objToStr(cookies)
             },
             timeout: config.timeout
         }),

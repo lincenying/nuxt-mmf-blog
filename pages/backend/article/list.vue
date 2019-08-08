@@ -13,13 +13,11 @@
                 <div class="list-date">{{ item.update_date | timeAgo }}</div>
                 <div class="list-action">
                     <router-link :to="'/backend/article/modify/' + item._id" class="badge badge-success">编辑</router-link>
-                    •
                     <a v-if="item.is_delete" @click="recover(item._id)" href="javascript:;">恢复</a>
                     <a v-else @click="deletes(item._id)" href="javascript:;">删除</a>
-                    <span v-if="item.comment_count > 0">
-                        •
-                        <router-link :to="'/backend/article/comment/' + item._id" class="badge badge-success">评论</router-link>
-                    </span>
+                    <router-link v-if="item.comment_count > 0" :to="'/backend/article/comment/' + item._id" class="badge badge-success"
+                        >评论</router-link
+                    >
                 </div>
             </div>
         </div>
@@ -31,6 +29,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { showMsg } from '@/utils'
 import { api } from '~api'
 
 export default {
@@ -55,7 +54,7 @@ export default {
         async recover(id) {
             const { code, message } = await api().get('backend/article/recover', { id })
             if (code === 200) {
-                this.$store.dispatch('global/showMsg', {
+                showMsg({
                     type: 'success',
                     content: message
                 })
@@ -65,7 +64,7 @@ export default {
         async deletes(id) {
             const { code, message } = await api().get('backend/article/delete', { id })
             if (code === 200) {
-                this.$store.dispatch('global/showMsg', {
+                showMsg({
                     type: 'success',
                     content: message
                 })

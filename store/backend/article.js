@@ -15,7 +15,7 @@ export const actions = {
         if (state.lists.data.length > 0 && config.path === state.lists.path && config.page === 1) return
         const {
             data: { data, code }
-        } = await api(rootState.cookies).get('backend/article/list', config)
+        } = await api(rootState.global.cookies).get('backend/article/list', config)
         if (data && code === 200) {
             commit('receiveArticleList', {
                 ...data,
@@ -24,19 +24,19 @@ export const actions = {
         }
     },
     async ['getArticleItem']({ rootState }, config) {
-        const { data, code } = await api(rootState.cookies).get('backend/article/item', config)
+        const { data, code } = await api(rootState.global.cookies).get('backend/article/item', config)
         if (data && code === 200) {
             return data
         }
     },
     async ['deleteArticle']({ commit, rootState }, config) {
-        const { code } = await api(rootState.cookies).get('backend/article/delete', config)
+        const { code } = await api(rootState.global.cookies).get('backend/article/delete', config)
         if (code === 200) {
             commit('deleteArticle', config.id)
         }
     },
     async ['recoverArticle']({ commit, rootState }, config) {
-        const { code } = await api(rootState.cookies).get('backend/article/recover', config)
+        const { code } = await api(rootState.global.cookies).get('backend/article/recover', config)
         if (code === 200) {
             commit('recoverArticle', config.id)
         }

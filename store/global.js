@@ -1,5 +1,3 @@
-import { showMsg, hideMsg } from '@/utils'
-
 export const state = () => ({
     loading: false,
     cookies: {},
@@ -7,14 +5,7 @@ export const state = () => ({
     showRegisterModal: false
 })
 
-export const actions = {
-    ['showMsg'](store, config) {
-        showMsg(config)
-    },
-    ['hideMsg']() {
-        hideMsg()
-    }
-}
+export const actions = {}
 
 export const mutations = {
     ['showLoginModal'](state, payload) {
@@ -22,6 +13,9 @@ export const mutations = {
     },
     ['showRegisterModal'](state, payload) {
         state.showRegisterModal = payload
+    },
+    ['setCookies'](state, cookies) {
+        state.cookies = cookies
     }
 }
 

@@ -17,7 +17,7 @@ export const state = () => ({
 export const actions = {
     async ['getUserList']({ commit, state, rootState }, config) {
         if (state.lists.data.length > 0 && config.path === state.lists.path && config.page === 1) return
-        const { data, code } = await api(rootState.cookies).get('backend/user/list', { ...config, cache: true })
+        const { data, code } = await api(rootState.global.cookies).get('backend/user/list', { ...config, cache: true })
         if (data && code === 200) {
             commit('receiveUserList', {
                 ...data,
@@ -26,7 +26,7 @@ export const actions = {
         }
     },
     async ['getUserItem']({ commit, rootState }, config) {
-        const { data, code } = await api(rootState.cookies).get('backend/user/item', config)
+        const { data, code } = await api(rootState.global.cookies).get('backend/user/item', config)
         if (data && code === 200) {
             commit('receiveUserItem', {
                 data,

@@ -9,7 +9,7 @@
                 <i class="icon icon-arrow-down"></i>
                 <select v-model="form.category" class="select-item" name="category">
                     <option value="">请选择分类</option>
-                    <option v-for="item in category" :value="item._id" :key="item._id">{{ item.cate_name }}</option>
+                    <option v-for="item in category" :key="item._id" :value="item._id">{{ item.cate_name }}</option>
                 </select>
                 <span class="input-info error">请输入分类</span>
             </a-input>
@@ -29,6 +29,7 @@
 <script>
 /* global modifyEditor */
 import { mapGetters } from 'vuex'
+import { showMsg } from '@/utils'
 import { api } from '~api'
 import aInput from '@/components/_input.vue'
 
@@ -63,7 +64,6 @@ export default {
     },
     async asyncData({ store, route }, config = { limit: 99 }) {
         config.all = 1
-        await store.commit('global/showBackendNav', true)
         await store.dispatch('global/category/getCategoryList', {
             ...config,
             path: route.path
@@ -76,12 +76,12 @@ export default {
         this.form.category = data.category
         this.form.content = data.content
         // eslint-disable-next-line
-        window.modifyEditor = editormd("modify-content", {
+        window.modifyEditor = editormd('modify-content', {
             width: '100%',
             height: 500,
             markdown: data.content,
             placeholder: '请输入内容...',
-            path: '/editor.md/lib/',
+            path: 'https://cdn.jsdelivr.net/npm/editor.md@1.5.0/lib/',
             toolbarIcons() {
                 return [
                     'bold',
@@ -111,13 +111,13 @@ export default {
         async modify() {
             const content = modifyEditor.getMarkdown()
             if (!this.form.title || !this.form.category || !content) {
-                this.$store.dispatch('global/showMsg', '请将表单填写完整!')
+                showMsg('请将表单填写完整!')
                 return
             }
             this.form.content = content
-            const { code, message, data } = await api().post('backend/article/modify', this.form)
+            const { code, data, message } = await api().post('backend/article/modify', this.form)
             if (code === 200) {
-                this.$store.dispatch('global/showMsg', {
+                showMsg({
                     type: 'success',
                     content: message
                 })

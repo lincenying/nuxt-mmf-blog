@@ -8,3 +8,4 @@ build
 static/sw.js
 server/config/secret.js
 server/config/mpapp.js
+server/config/shihua.js

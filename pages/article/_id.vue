@@ -1,9 +1,21 @@
 <template>
     <div class="main wrap clearfix">
         <div class="main-left">
-            <template v-if="!article.isLoad">
-                <div class="card card-answer"><div class="answer-content">加载中, 请稍等...</div></div>
-            </template>
+            <!--
+                <template v-if="!article.isLoad">
+                    <div class="card card-answer">
+                        <div class="answer-content">加载中, 请稍等...</div>
+                    </div>
+                </template>
+            -->
+            <div v-if="!article.isLoad" class="card card-content-loader">
+                <content-loader :height="160" :width="660" :speed="2" primaryColor="#f3f3f3" secondaryColor="#ecebeb">
+                    <rect x="70" y="15" rx="4" ry="4" width="117" height="6.4" /> <rect x="70" y="35" rx="3" ry="3" width="85" height="6.4" />
+                    <rect x="0" y="80" rx="3" ry="3" width="550" height="6.4" /> <rect x="0" y="100" rx="3" ry="3" width="620" height="6.4" />
+                    <rect x="0" y="120" rx="3" ry="3" width="401" height="6.4" /> <rect x="0" y="140" rx="3" ry="3" width="501" height="6.4" />
+                    <circle cx="30" cy="30" r="30" />
+                </content-loader>
+            </div>
             <template v-else-if="article.data._id">
                 <div class="card card-question-head">
                     <div class="question-content">
@@ -27,15 +39,13 @@
                 <div class="card card-answer"><div class="answer-content">该文章不存在, 或者该文章已经被删除</div></div>
             </template>
         </div>
-        <div class="main-right">
-            <category :category="category"></category>
-            <trending :trending="trending"></trending>
-        </div>
+        <div class="main-right"><category :category="category"></category> <trending :trending="trending"></trending></div>
     </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import { ContentLoader } from 'vue-content-loader'
 import actions from '@/components/item-actions.vue'
 import category from '@/components/aside-category.vue'
 import trending from '@/components/aside-trending.vue'
@@ -45,6 +55,7 @@ export default {
     name: 'frontend-article',
     transition: 'slide-left',
     components: {
+        ContentLoader,
         actions,
         comment,
         category,

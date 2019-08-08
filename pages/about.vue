@@ -40,8 +40,7 @@
                         <h3 class="about-title">关于网站</h3>
                         <p>
                             源代码:
-                            <a href="https://github.com/lincenying/mmf-blog-vue2-pwa-ssr" target="_blank">mmf-blog-vue2-pwa-ssr</a>
-                            欢迎收藏加星
+                            <a href="https://github.com/lincenying/mmf-blog-vue2-pwa-ssr" target="_blank">mmf-blog-vue2-pwa-ssr</a> 欢迎收藏加星
                         </p>
                         <p>本站服务端采用 express + mongoDB 搭建, 客户端采用 Vue2 的服务端渲染搭建</p>
                         <p>网站分成前台和后台, 前台采用 SSR 模式渲染, 后台采用 SPA 模式</p>

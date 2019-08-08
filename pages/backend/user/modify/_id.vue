@@ -16,13 +16,14 @@
         </div>
         <div class="settings-footer clearfix">
             <router-link to="/backend/user/list" class="btn btn-blue">返回</router-link>
-            <a @click="modify" href="javascript:;" class="btn btn-yellow">编辑管理员</a>
+            <a @click="modify" href="javascript:;" class="btn btn-yellow">编辑用户</a>
         </div>
     </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import { showMsg } from '@/utils'
 import { api } from '~api'
 import aInput from '@/components/_input.vue'
 
@@ -59,9 +60,6 @@ export default {
             path: route.path
         })
     },
-    created() {
-        this.$store.commit('global/showBackendNav', true)
-    },
     mounted() {
         this.form.username = this.item.data.username
         this.form.email = this.item.data.email
@@ -69,12 +67,12 @@ export default {
     methods: {
         async modify() {
             if (!this.form.username || !this.form.email) {
-                this.$store.dispatch('global/showMsg', '请将表单填写完整!')
+                showMsg('请将表单填写完整!')
                 return
             }
-            const { code, message, data } = await api().post('backend/user/modify', this.form)
+            const { code, data, message } = await api().post('backend/user/modify', this.form)
             if (code === 200) {
-                this.$store.dispatch('global/showMsg', {
+                showMsg({
                     type: 'success',
                     content: message
                 })

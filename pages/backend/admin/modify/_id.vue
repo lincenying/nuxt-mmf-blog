@@ -23,6 +23,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { showMsg } from '@/utils'
 import { api } from '~api'
 
 import aInput from '@/components/_input.vue'
@@ -67,12 +68,12 @@ export default {
     methods: {
         async modify() {
             if (!this.form.username || !this.form.email) {
-                this.$store.dispatch('global/showMsg', '请将表单填写完整!')
+                showMsg('请将表单填写完整!')
                 return
             }
-            const { code, message, data } = await api().post('backend/admin/modify', this.form)
+            const { code, data, message } = await api().post('backend/admin/modify', this.form)
             if (code === 200) {
-                this.$store.dispatch('global/showMsg', {
+                showMsg({
                     type: 'success',
                     content: message
                 })

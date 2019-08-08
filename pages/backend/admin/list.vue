@@ -13,7 +13,6 @@
                 <div class="list-date">{{ item.update_date | timeYmd }}</div>
                 <div class="list-action">
                     <router-link :to="'/backend/admin/modify/' + item._id" class="badge badge-success">编辑</router-link>
-                    •
                     <a v-if="item.is_delete" @click="recover(item._id)" href="javascript:;">恢复</a>
                     <a v-else @click="deletes(item._id)" href="javascript:;">删除</a>
                 </div>
@@ -28,6 +27,7 @@
 <script>
 import { api } from '~api'
 import { mapGetters } from 'vuex'
+import { showMsg } from '@/utils'
 
 export default {
     name: 'backend-admin-list',
@@ -51,7 +51,7 @@ export default {
         async recover(id) {
             const { code, message } = await api().get('backend/admin/recover', { id })
             if (code === 200) {
-                this.$store.dispatch('global/showMsg', {
+                showMsg({
                     type: 'success',
                     content: message
                 })
@@ -61,7 +61,7 @@ export default {
         async deletes(id) {
             const { code, message } = await api().get('backend/admin/delete', { id })
             if (code === 200) {
-                this.$store.dispatch('global/showMsg', {
+                showMsg({
                     type: 'success',
                     content: message
                 })

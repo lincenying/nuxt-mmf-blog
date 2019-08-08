@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import { showMsg } from '@/utils'
 import { api } from '~api'
 import aInput from '@/components/_input.vue'
 
@@ -35,12 +36,12 @@ export default {
     methods: {
         async insert() {
             if (!this.form.cate_name || !this.form.cate_order) {
-                this.$store.dispatch('global/showMsg', '请将表单填写完整!')
+                showMsg('请将表单填写完整!')
                 return
             }
-            const { code, message, data } = await api().post('backend/category/insert', this.form)
+            const { code, data, message } = await api().post('backend/category/insert', this.form)
             if (code === 200) {
-                this.$store.dispatch('global/showMsg', {
+                showMsg({
                     type: 'success',
                     content: message
                 })

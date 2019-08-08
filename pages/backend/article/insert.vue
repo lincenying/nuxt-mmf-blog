@@ -9,7 +9,7 @@
                 <i class="icon icon-arrow-down"></i>
                 <select v-model="form.category" class="select-item" name="category">
                     <option value="">请选择分类</option>
-                    <option v-for="item in category" :value="item._id + '|' + item.cate_name" :key="item._id">{{ item.cate_name }}</option>
+                    <option v-for="item in category" :key="item._id" :value="item._id + '|' + item.cate_name">{{ item.cate_name }}</option>
                 </select>
                 <span class="input-info error">请输入分类</span>
             </a-input>
@@ -26,6 +26,7 @@
 <script>
 /* global postEditor */
 import { mapGetters } from 'vuex'
+import { showMsg } from '@/utils'
 import { api } from '~api'
 import aInput from '@/components/_input.vue'
 
@@ -58,12 +59,12 @@ export default {
     },
     mounted() {
         // eslint-disable-next-line
-        window.postEditor = editormd("post-content", {
+        window.postEditor = editormd('post-content', {
             width: '100%',
             height: 500,
             markdown: '',
             placeholder: '请输入内容...',
-            path: '/editor.md/lib/',
+            path: 'https://cdn.jsdelivr.net/npm/editor.md@1.5.0/lib/',
             toolbarIcons() {
                 return [
                     'bold',
@@ -93,13 +94,13 @@ export default {
         async insert() {
             const content = postEditor.getMarkdown()
             if (!this.form.title || !this.form.category || !content) {
-                this.$store.dispatch('global/showMsg', '请将表单填写完整!')
+                showMsg('请将表单填写完整!')
                 return
             }
             this.form.content = content
-            const { code, message, data } = await api().post('backend/article/insert', this.form)
+            const { code, data, message } = await api().post('backend/article/insert', this.form)
             if (code === 200) {
-                this.$store.dispatch('global/showMsg', {
+                showMsg({
                     type: 'success',
                     content: message
                 })
@@ -108,7 +109,7 @@ export default {
             }
         }
     },
-    head() {
+    haed() {
         return {
             title: '发布文章 - M.M.F 小屋',
             meta: [{ vmid: 'description', name: 'description', content: 'M.M.F 小屋' }]

@@ -4,7 +4,7 @@
             <div class="comment-items-wrap">
                 <div v-for="item in comments.data" :key="item._id" class="comment-item">
                     <a href="javascript:;" class="comment-author-avatar-link">
-                        <img src="https://ae01.alicdn.com/kf/HTB1VzjybLWG3KVjSZPcq6zkbXXaN.jpg" alt="" class="avatar-img" />
+                        <img :src="item.email | avatar" alt="" class="avatar-img" />
                     </a>
                     <div class="comment-content-wrap">
                         <span class="comment-author-wrap">
@@ -28,6 +28,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { showMsg } from '@/utils'
 import { api } from '~api'
 
 export default {
@@ -54,7 +55,7 @@ export default {
         async recover(id) {
             const { code, message } = await api().get('frontend/comment/recover', { id })
             if (code === 200) {
-                this.$store.dispatch('global/showMsg', {
+                showMsg({
                     type: 'success',
                     content: message
                 })
@@ -64,7 +65,7 @@ export default {
         async deletes(id) {
             const { code, message } = await api().get('frontend/comment/delete', { id })
             if (code === 200) {
-                this.$store.dispatch('global/showMsg', {
+                showMsg({
                     type: 'success',
                     content: message
                 })
