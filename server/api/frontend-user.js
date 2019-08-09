@@ -326,7 +326,6 @@ exports.modify = (req, res) => {
 exports.account = (req, res) => {
     const { id, email } = req.body
     const user_id = req.cookies.userid || req.headers.userid
-    console.log(user_id, id)
     if (user_id === id) {
         User.updateOneAsync({ _id: id }, { $set: { email } })
             .then(() => {
