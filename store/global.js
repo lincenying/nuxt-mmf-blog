@@ -20,7 +20,7 @@ export const mutations = {
 }
 
 export const getters = {
-    ['getGlobal'](state) {
+    ['get'](state) {
         return state
     }
 }

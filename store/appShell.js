@@ -86,3 +86,9 @@ export const mutations = {
         state.historyPageScrollTop[path] = scrollTop
     }
 }
+
+export const getters = {
+    ['get'](state) {
+        return state
+    }
+}

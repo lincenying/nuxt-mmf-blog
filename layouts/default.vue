@@ -38,9 +38,9 @@ export default {
     },
     computed: {
         ...mapGetters({
-            global: 'global/getGlobal'
+            global: 'global/get',
+            appShell: 'appShell/get'
         }),
-        ...mapState('appShell', ['pageTransitionName']),
         key() {
             return this.$route.path.replace(/\//g, '_')
         },
