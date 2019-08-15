@@ -2,7 +2,17 @@ const fs = require('fs')
 const multer = require('multer')
 const moment = require('moment')
 const AipImageClassifyClient = require('baidu-aip-sdk').imageClassify
-const upload = multer({ dest: 'uploads/' }).single('file')
+
+const storage = multer.diskStorage({
+    destination(req, file, cb) {
+        cb(null, './uploads')
+    },
+    filename(req, file, cb) {
+        const ext = file.originalname.split('.').pop()
+        cb(null, 'shihua-' + Date.now() + '.' + ext)
+    }
+})
+const upload = multer({ storage }).single('file')
 const config = require('../config/shihua')
 const checkJWT = require('../utils/check-jwt').checkJWT
 
@@ -60,9 +70,15 @@ exports.shihua = async (req, res) => {
                     fs.unlinkSync('./uploads/' + img_id)
                 }
             }
-            return shihuaResult
+            return {
+                success: true,
+                data: shihuaResult
+            }
         } catch (error) {
-            return null
+            return {
+                success: false,
+                message: error.message
+            }
         }
     }
 
@@ -77,18 +93,18 @@ exports.shihua = async (req, res) => {
                 })
             } else {
                 getData().then(data => {
-                    if (data) {
+                    if (data.success) {
                         res.json({
                             code: 200,
                             from: 'api',
                             userid,
-                            ...data
+                            ...data.data
                         })
                     } else {
                         res.json({
                             code: -200,
                             userid,
-                            message: '读取数据失败'
+                            message: data.message || '读取数据失败'
                         })
                     }
                 })
@@ -96,16 +112,16 @@ exports.shihua = async (req, res) => {
         })
     } else {
         getData().then(data => {
-            if (data) {
+            if (data.success) {
                 res.json({
                     code: 200,
                     from: 'api',
-                    ...data
+                    ...data.data
                 })
             } else {
                 res.json({
                     code: -200,
-                    message: '读取数据失败'
+                    message: data.message || '读取数据失败'
                 })
             }
         })
