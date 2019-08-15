@@ -92,6 +92,11 @@ module.exports = {
             img: ({ isDev }) => (isDev ? '[path][name].[ext]' : 'img/[hash:7].[ext]'),
             font: ({ isDev }) => (isDev ? '[path][name].[ext]' : 'fonts/[hash:7].[ext]'),
             video: ({ isDev }) => (isDev ? '[path][name].[ext]' : 'videos/[hash:7].[ext]')
+        },
+        postcss: {
+            plugins: {
+                autoprefixer: {}
+            }
         }
     },
     cache: {
