@@ -109,7 +109,7 @@ module.exports = {
         failedColor: '#bf5050',
         duration: 1500
     },
-    modules: ['@nuxtjs/workbox', '@nuxtjs/manifest'],
+    modules: ['@nuxtjs/pwa'],
     manifest: {
         name: 'MMF-Blog',
         short_name: 'MMF-Blog',
@@ -145,6 +145,34 @@ module.exports = {
                 path: '/search/:key',
                 component: resolve(__dirname, 'pages/index.vue')
             })
+        }
+    },
+    pwa: {
+        workbox: {
+            runtimeCaching: [
+                {
+                    urlPattern: /api/,
+                    handler: 'networkFirst',
+                    options: {
+                        networkTimeoutSeconds: 1,
+                        cacheName: 'api-cache',
+                        cacheableResponse: {
+                            statuses: [0, 200]
+                        }
+                    }
+                },
+                {
+                    urlPattern: /^https:\/\/cdn\.jsdelivr\.net/,
+                    handler: 'networkFirst',
+                    options: {
+                        networkTimeoutSeconds: 1,
+                        cacheName: 'cdn-cache',
+                        cacheableResponse: {
+                            statuses: [0, 200]
+                        }
+                    }
+                }
+            ]
         }
     }
 }
