@@ -4,6 +4,8 @@ const join = require('path').join
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
+const isDev = process.env.NODE_ENV !== 'production'
+
 module.exports = {
     head: {
         link: [
@@ -149,6 +151,7 @@ module.exports = {
     },
     pwa: {
         workbox: {
+            dev: isDev,
             runtimeCaching: [
                 {
                     urlPattern: /api/,
