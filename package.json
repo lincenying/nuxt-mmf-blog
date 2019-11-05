@@ -1,6 +1,6 @@
 {
   "name": "nuxt-mmf-blog",
-  "version": "1.0.1",
+  "version": "2.0.1",
   "description": "nuxt-mmf-blog",
   "license": "MIT",
   "scripts": {
@@ -35,7 +35,7 @@
   "devDependencies": {
     "body-parser": "^1.19.0",
     "browserslist": "^4.7.2",
-    "caniuse-lite": "^1.0.30001006",
+    "caniuse-lite": "^1.0.30001008",
     "connect-multiparty": "^2.2.0",
     "cookie-parser": "^1.4.4",
     "eslint-config-lcy-vue": "^3.0.9",
