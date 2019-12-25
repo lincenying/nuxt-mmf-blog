@@ -4,7 +4,7 @@
   "description": "nuxt-mmf-blog",
   "license": "MIT",
   "scripts": {
-    "dev": "node server.js",
+    "serve": "node server.js",
     "build": "nuxt build",
     "start": "NODE_ENV=production node server.js",
     "lint": "eslint --ext .js,.jsx,.vue ./ --fix"
@@ -14,46 +14,47 @@
     "@nuxtjs/pwa": "3.0.0-beta.19",
     "@nuxtjs/workbox": "^3.0.0-beta.16",
     "axios": "^0.19.0",
-    "baidu-aip-sdk": "^2.4.4",
-    "highlight.js": "^9.16.2",
+    "baidu-aip-sdk": "^2.4.5",
+    "highlight.js": "^9.17.1",
     "js-cookie": "^2.2.1",
     "jsonwebtoken": "^8.5.1",
     "lodash.get": "^4.4.2",
-    "marked": "^0.7.0",
+    "lru-cache": "^5.1.1",
+    "marked": "^0.8.0",
     "md5": "^2.2.1",
     "moment": "^2.24.0",
-    "mongoose-autopopulate": "^0.9.1",
-    "nuxt": "^2.10.2",
+    "mongoose-autopopulate": "^0.10.0",
+    "nuxt": "^2.11.0",
     "request-promise": "^4.2.5",
     "store2": "^2.10.0",
     "theme-default": "^4.0.0",
     "toastr": "^2.1.4",
-    "vue": "^2.6.10",
+    "vue": "^2.6.11",
     "vue-content-loader": "^0.2.2",
-    "vue-server-renderer": "^2.6.10"
+    "vue-server-renderer": "^2.6.11"
   },
   "devDependencies": {
     "body-parser": "^1.19.0",
-    "browserslist": "^4.7.2",
-    "caniuse-lite": "^1.0.30001008",
+    "browserslist": "^4.8.2",
+    "caniuse-lite": "^1.0.30001016",
     "connect-multiparty": "^2.2.0",
     "cookie-parser": "^1.4.4",
     "eslint-config-lcy-vue": "^3.0.9",
-    "eslint-config-prettier": "^6.5.0",
-    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-plugin-prettier": "^3.1.2",
     "extract-text-webpack-plugin": "^3.0.2",
-    "husky": "^3.0.9",
+    "husky": "^3.1.0",
     "less": "^3.10.3",
     "less-loader": "^5.0.0",
-    "lint-staged": "^9.4.2",
-    "mongoose": "^5.7.7",
+    "lint-staged": "^9.5.0",
+    "mongoose": "^5.8.3",
     "morgan": "^1.9.1",
     "multer": "^1.4.2",
-    "prettier": "^1.18.2",
+    "prettier": "^1.19.1",
     "serve-favicon": "^2.5.0",
     "sw-precache-webpack-plugin": "^0.11.5",
     "uglifyjs-webpack-plugin": "^2.2.0",
-    "vue-template-compiler": "^2.6.10"
+    "vue-template-compiler": "^2.6.11"
   },
   "engines": {
     "node": ">= 8.6.0",
@@ -75,9 +76,7 @@
       "git add"
     ]
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
+  "gitHooks": {
+    "pre-commit": "lint-staged"
   }
 }

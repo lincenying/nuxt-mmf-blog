@@ -1,5 +1,5 @@
 <template>
-    <div class="main wrap clearfix">
+    <div class="main wrap">
         <div class="main-left">
             <!--
                 <template v-if="!article.isLoad">
@@ -39,7 +39,11 @@
                 <div class="card card-answer"><div class="answer-content">该文章不存在, 或者该文章已经被删除</div></div>
             </template>
         </div>
-        <div class="main-right"><category :category="category"></category> <trending :trending="trending"></trending></div>
+        <div class="main-right">
+            <category :category="category"></category>
+            <trending :trending="trending"></trending>
+            <other></other>
+        </div>
     </div>
 </template>
 
