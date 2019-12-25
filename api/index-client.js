@@ -12,7 +12,10 @@ axios.interceptors.request.use(
     }
 )
 
-axios.interceptors.response.use(response => response, error => Promise.resolve(error.response))
+axios.interceptors.response.use(
+    response => response,
+    error => Promise.resolve(error.response)
+)
 
 function checkStatus(response) {
     if (response && (response.status === 200 || response.status === 304)) {

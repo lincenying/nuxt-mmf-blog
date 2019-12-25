@@ -15,10 +15,10 @@ $npm install
 $yarn
 
 # 开发模式
-$npm run dev
+yarn serve
 
 # 生产模式
-$npm run build
+yarn build
 ```
 
 http://localhost:3030

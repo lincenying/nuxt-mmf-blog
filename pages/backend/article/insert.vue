@@ -19,7 +19,7 @@
                 </div>
             </div>
         </div>
-        <div class="settings-footer clearfix"><a @click="insert" href="javascript:;" class="btn btn-yellow">添加文章</a></div>
+        <div class="settings-footer"><a @click="insert" href="javascript:;" class="btn btn-yellow">添加文章</a></div>
     </div>
 </template>
 
@@ -57,38 +57,40 @@ export default {
             path: route.path
         })
     },
-    mounted() {
-        // eslint-disable-next-line
-        window.postEditor = editormd('post-content', {
-            width: '100%',
-            height: 500,
-            markdown: '',
-            placeholder: '请输入内容...',
-            path: 'https://cdn.jsdelivr.net/npm/editor.md@1.5.0/lib/',
-            toolbarIcons() {
-                return [
-                    'bold',
-                    'italic',
-                    'quote',
-                    '|',
-                    'list-ul',
-                    'list-ol',
-                    'hr',
-                    '|',
-                    'link',
-                    'reference-link',
-                    'image',
-                    'code',
-                    'table',
-                    '|',
-                    'watch',
-                    'preview',
-                    'fullscreen'
-                ]
-            },
-            watch: false,
-            saveHTMLToTextarea: true
-        })
+    async mounted() {
+        setTimeout(() => {
+            // eslint-disable-next-line
+            window.postEditor = editormd('post-content', {
+                width: '100%',
+                height: 500,
+                markdown: '',
+                placeholder: '请输入内容...',
+                path: 'https://cdn.jsdelivr.net/npm/editor.md@1.5.0/lib/',
+                toolbarIcons() {
+                    return [
+                        'bold',
+                        'italic',
+                        'quote',
+                        '|',
+                        'list-ul',
+                        'list-ol',
+                        'hr',
+                        '|',
+                        'link',
+                        'reference-link',
+                        'image',
+                        'code',
+                        'table',
+                        '|',
+                        'watch',
+                        'preview',
+                        'fullscreen'
+                    ]
+                },
+                watch: false,
+                saveHTMLToTextarea: true
+            })
+        }, 500)
     },
     methods: {
         async insert() {

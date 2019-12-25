@@ -3,6 +3,7 @@
 </template>
 <script>
 export default {
+    name: 'ajax-form',
     props: {
         action: {
             type: String,
@@ -67,7 +68,7 @@ export default {
                 this.method = 'post'
             }
             // eslint-disable-next-line
-                var xhr = new XMLHttpRequest()
+            var xhr = new XMLHttpRequest()
             var handleFinish = () => {
                 if (xhr.readyState === 4) {
                     if (xhr.status < 400) {
@@ -92,7 +93,7 @@ export default {
             xhr.addEventListener('error', handleError)
             xhr.addEventListener('abort', handleError)
             // eslint-disable-next-line
-                var data = new FormData(event.target)
+            var data = new FormData(event.target)
             xhr.send(data)
             this.after()
         }
