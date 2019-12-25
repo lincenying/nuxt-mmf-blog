@@ -14,6 +14,7 @@ const frontendLike = require('../api/frontend-like')
 const frontendUser = require('../api/frontend-user')
 const frontendShihua = require('../api/frontend-shihua')
 const frontendWeiBo = require('../api/frontend-weibo')
+const frontendMeizitu = require('../api/frontend-meizitu')
 const isAdmin = require('./is-admin')
 const isUser = require('./is-user')
 
@@ -123,8 +124,8 @@ router.get('/frontend/reset/like', isUser, frontendLike.resetLike)
 // ------ 识花 ------
 router.post('/frontend/shihua/upload', cors, frontendShihua.upload)
 router.get('/frontend/shihua/get', cors, frontendShihua.shihua)
-router.get('/frontend/shihua/history/list', cors, frontendShihua.getHistory)
-router.get('/frontend/shihua/history/delete', cors, frontendShihua.delHistory)
+router.get('/frontend/shihua/history/list', cors, isUser, frontendShihua.getHistory)
+router.get('/frontend/shihua/history/delete', cors, isUser, frontendShihua.delHistory)
 // ------ 微博 ------
 router.get('/frontend/weibo/get', cors, frontendWeiBo.get)
 router.get('/frontend/weibo/card', cors, frontendWeiBo.card)
@@ -132,6 +133,9 @@ router.get('/frontend/weibo/video', cors, frontendWeiBo.video)
 router.get('/frontend/weibo/beauty-video', cors, frontendWeiBo.beautyVideo)
 router.get('/frontend/weibo/detail', cors, frontendWeiBo.detail)
 router.get('/frontend/weibo/check', cors, frontendWeiBo.checkUpdate)
+// ------ 妹子图 ------
+router.get('/frontend/meizitu/lists', cors, frontendMeizitu.lists)
+router.get('/frontend/meizitu/item', cors, frontendMeizitu.item)
 
 router.get('*', (req, res) => {
     res.json({
