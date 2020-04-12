@@ -54,6 +54,7 @@ import actions from '@/components/item-actions.vue'
 import category from '@/components/aside-category.vue'
 import trending from '@/components/aside-trending.vue'
 import comment from '@/components/frontend-comment.vue'
+import other from '@/components/aside-other.vue'
 
 export default {
     name: 'frontend-article',
@@ -63,7 +64,8 @@ export default {
         actions,
         comment,
         category,
-        trending
+        trending,
+        other
     },
     computed: {
         ...mapGetters({
