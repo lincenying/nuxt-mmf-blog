@@ -21,10 +21,10 @@ import aInput from '@/components/_input.vue'
 
 export default {
     name: 'backend-category-insert',
-    middleware: 'admin',
     components: {
         aInput
     },
+    middleware: 'admin',
     data() {
         return {
             form: {

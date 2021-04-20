@@ -105,7 +105,7 @@ module.exports = {
         max: 1000,
         maxAge: 900000
     },
-    css: ['~/assets/css/hljs/googlecode.css', '~/assets/less/style.less', 'toastr/build/toastr.css'],
+    css: ['~/assets/css/hljs/googlecode.css', '~/assets/scss/style.scss', 'toastr/build/toastr.css'],
     loading: {
         color: '#4FC08D',
         failedColor: '#bf5050',

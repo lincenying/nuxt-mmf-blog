@@ -2,7 +2,17 @@ import axios from 'axios'
 import qs from 'qs'
 import md5 from 'md5'
 import config from './config-server'
-import { objToStr } from '@/utils'
+
+const objToStr = cookies => {
+    if (!cookies) return ''
+    let cookie = ''
+    Object.keys(cookies).forEach(item => {
+        cookie += item + '=' + cookies[item] + '; '
+    })
+    return cookie
+}
+
+export default {}
 
 export const api = cookies => {
     return {
@@ -23,9 +33,10 @@ export const api = cookies => {
             const username = cookies.username || ''
             const key = md5(url + JSON.stringify(data) + username)
             if (config.cached && data.cache && config.cached.has(key)) {
-                return Promise.resolve(config.cached.get(key))
+                const res = config.cached.get(key)
+                return Promise.resolve(res && res.data)
             }
-            const res = await this.api({
+            const res_1 = await this.api({
                 method: 'post',
                 url,
                 data: qs.stringify(data),
@@ -33,26 +44,25 @@ export const api = cookies => {
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
                 }
             })
-            if (config.cached && data.cache) config.cached.set(key, res)
-            return res && res.data
+            if (config.cached && data.cache) config.cached.set(key, res_1)
+            return res_1 && res_1.data
         },
         async get(url, params) {
             const cookies = this.getCookes() || {}
             const username = cookies.username || ''
             const key = md5(url + JSON.stringify(params) + username)
             if (config.cached && params.cache && config.cached.has(key)) {
-                return Promise.resolve(config.cached.get(key))
+                const res = config.cached.get(key)
+                return Promise.resolve(res && res.data)
             }
-            const res = await this.api({
+            return this.api({
                 method: 'get',
                 url,
-                params,
-                headers: {
-                    cookie: objToStr(cookies)
-                }
+                params
+            }).then(res => {
+                if (config.cached && params.cache) config.cached.set(key, res)
+                return res && res.data
             })
-            if (config.cached && params.cache) config.cached.set(key, res)
-            return res && res.data
         }
     }
 }

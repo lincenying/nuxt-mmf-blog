@@ -31,12 +31,11 @@ import aInput from '@/components/_input.vue'
 
 export default {
     name: 'frontend-user-account',
-    transition: 'slide-left',
-    middleware: 'user',
     components: {
         account,
         aInput
     },
+    middleware: 'user',
     data() {
         return {
             username: '',

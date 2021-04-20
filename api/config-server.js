@@ -1,22 +1,16 @@
-const lruCache = require('lru-cache')
+import lruCache from 'lru-cache'
 
-let api
 const cached = false
-const LruCache = new lruCache({
-    max: 1000,
-    maxAge: 1000 * 60 * 15
-})
 
-if (process.__API__) {
-    api = process.__API__
-} else {
-    api = process.__API__ = {
-        api: 'http://localhost:3030/api/',
-        port: 3030,
-        timeout: 30000,
-        cached: cached && LruCache,
-        cachedItem: {}
-    }
+export default {
+    api: 'http://localhost:4000/api/',
+    port: 8080,
+    timeout: 30000,
+    cached:
+        cached &&
+        new lruCache({
+            max: 1000,
+            maxAge: 1000 * 60 * 15
+        }),
+    cachedItem: {}
 }
-
-module.exports = api

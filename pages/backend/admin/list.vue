@@ -18,8 +18,9 @@
                 </div>
             </div>
         </div>
-        <div v-if="admin.hasNext" class="settings-footer clearfix">
-            <a @click="loadMore()" class="admin-load-more" href="javascript:;">加载更多</a>
+        <div v-if="admin.hasNext" class="settings-footer">
+            <a v-if="!loading" @click="loadMore()" class="admin-load-more" href="javascript:;">加载更多</a>
+            <a v-else class="admin-load-more" href="javascript:;">加载中...</a>
         </div>
     </div>
 </template>
@@ -32,6 +33,11 @@ import { showMsg } from '@/utils'
 export default {
     name: 'backend-admin-list',
     middleware: 'admin',
+    data() {
+        return {
+            loading: false
+        }
+    },
     computed: {
         ...mapGetters({
             admin: 'backend/admin/getAdminList'
@@ -45,8 +51,10 @@ export default {
     },
     mounted() {},
     methods: {
-        loadMore(page = this.admin.page + 1) {
-            this.$options.asyncData({ store: this.$store }, { page })
+        async loadMore(page = this.admin.page + 1) {
+            this.loading = true
+            await this.$options.asyncData({ store: this.$store }, { page })
+            this.loading = false
         },
         async recover(id) {
             const { code, message } = await api().get('backend/admin/recover', { id })

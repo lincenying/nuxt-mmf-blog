@@ -42,8 +42,20 @@ function checkCode(res) {
 }
 
 export const api = () => ({
-    async post(url, data) {
-        const response = await axios({
+    file(url, data) {
+        return axios({
+            method: 'post',
+            url,
+            data,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+            .then(checkStatus)
+            .then(checkCode)
+    },
+    post(url, data) {
+        return axios({
             method: 'post',
             url: config.api + url,
             data: qs.stringify(data),
@@ -53,11 +65,11 @@ export const api = () => ({
                 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
             }
         })
-        const res = await checkStatus(response)
-        return checkCode(res)
+            .then(checkStatus)
+            .then(checkCode)
     },
-    async get(url, params) {
-        const response = await axios({
+    get(url, params) {
+        return axios({
             method: 'get',
             url: config.api + url,
             params,
@@ -66,7 +78,7 @@ export const api = () => ({
                 'X-Requested-With': 'XMLHttpRequest'
             }
         })
-        const res = await checkStatus(response)
-        return checkCode(res)
+            .then(checkStatus)
+            .then(checkCode)
     }
 })

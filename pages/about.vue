@@ -55,14 +55,15 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
+import metaMixin from '@/mixins'
 import trending from '@/components/aside-trending.vue'
 
 export default {
     name: 'frontend-about',
-    transition: 'slide-left',
     components: {
         trending
     },
+    mixins: [metaMixin],
     computed: {
         ...mapGetters({
             trending: 'frontend/article/getTrending'

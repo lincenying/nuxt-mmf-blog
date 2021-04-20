@@ -50,15 +50,15 @@
 <script>
 import { mapGetters } from 'vuex'
 import { ContentLoader } from 'vue-content-loader'
+import metaMixin from '@/mixins'
 import actions from '@/components/item-actions.vue'
 import category from '@/components/aside-category.vue'
 import trending from '@/components/aside-trending.vue'
-import comment from '@/components/frontend-comment.vue'
 import other from '@/components/aside-other.vue'
+import comment from '@/components/frontend-comment.vue'
 
 export default {
     name: 'frontend-article',
-    transition: 'slide-left',
     components: {
         ContentLoader,
         actions,
@@ -66,6 +66,11 @@ export default {
         category,
         trending,
         other
+    },
+    mixins: [metaMixin],
+    beforeRouteUpdate(to, from, next) {
+        if (to.path !== from.path) this.$options.asyncData({ store: this.$store, route: to })
+        next()
     },
     computed: {
         ...mapGetters({
@@ -86,10 +91,6 @@ export default {
             store.dispatch(`global/comment/getCommentList`, { id, path, page: 1, limit: 10 }),
             store.dispatch(`frontend/article/getArticleItem`, { id, path })
         ])
-    },
-    beforeRouteUpdate(to, from, next) {
-        if (to.path !== from.path) this.$options.asyncData({ store: this.$store, route: to })
-        next()
     },
     mounted() {
         // this.$options.asyncData({store: this.$store})

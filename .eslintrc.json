@@ -1,6 +1,7 @@
 {
     "extends": ["lcy-vue"],
     "rules": {
-        "no-irregular-whitespace": 0
+        "no-irregular-whitespace": 0,
+        "vue/order-in-components": 0
     }
 }

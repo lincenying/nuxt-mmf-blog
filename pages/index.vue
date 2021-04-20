@@ -14,8 +14,8 @@
                 <template v-else-if="topics.data.length > 0">
                     <topics-item v-for="item in topics.data" :item="item" :key="item._id"></topics-item>
                     <div class="load-more-wrap">
-                        <a v-if="topics.hasNext" @click="loadMore()" href="javascript:;" class="load-more"
-                            >更多 <i class="icon icon-circle-loading"></i>
+                        <a v-if="topics.hasNext" @click="loadMore()" href="javascript:;" class="load-more" :class="loading ? 'loading' : ''"
+                            >{{ loading ? '加载中' : '更多' }} <i class="icon icon-circle-loading"></i>
                         </a>
                     </div>
                 </template>
@@ -32,16 +32,16 @@
 <script>
 import { mapGetters } from 'vuex'
 import { ContentLoader } from 'vue-content-loader'
+import metaMixin from '@/mixins'
 
 import topicsItem from '@/components/topics-item.vue'
 import topicsItemNone from '@/components/topics-item-none.vue'
 import category from '@/components/aside-category.vue'
 import trending from '@/components/aside-trending.vue'
-import other from '../components/aside-other.vue'
+import other from '@/components/aside-other.vue'
 
 export default {
     name: 'frontend-index',
-    transition: 'slide-right',
     components: {
         ContentLoader,
         topicsItem,
@@ -49,6 +49,12 @@ export default {
         category,
         trending,
         other
+    },
+    mixins: [metaMixin],
+    data() {
+        return {
+            loading: false
+        }
     },
     computed: {
         ...mapGetters({
@@ -73,8 +79,11 @@ export default {
     },
     methods: {
         async loadMore(page = this.topics.page + 1) {
+            if (this.loading) return
             this.$loading.start()
+            this.loading = true
             await this.$options.asyncData({ store: this.$store, route: this.$route }, { page })
+            this.loading = false
             this.$loading.finish()
         }
     },

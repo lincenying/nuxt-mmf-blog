@@ -29,10 +29,10 @@ import aInput from '@/components/_input.vue'
 
 export default {
     name: 'backend-user-modify',
-    middleware: 'admin',
     components: {
         aInput
     },
+    middleware: 'admin',
     data() {
         return {
             form: {

@@ -65,31 +65,3 @@ export const showMsg = message => {
 export const oc = (props, property, def) => {
     return get(props, property, def)
 }
-
-const trimStr = str => {
-    return str.replace(/(^\s*)|(\s*$)/g, '')
-}
-
-export const parseCookie = cookies => {
-    let $return
-    if (typeof cookies === 'string') {
-        const arr = cookies.split(';')
-        const cookie = {}
-        arr.forEach(item => {
-            const tmp = item.split('=')
-            cookie[trimStr(tmp[0])] = trimStr(tmp[1])
-        })
-        $return = cookie
-    } else if (typeof cookies === 'object') {
-        $return = (cookies && { ...cookies }) || {}
-    }
-    return $return
-}
-
-export const objToStr = cookies => {
-    let cookie = ''
-    Object.keys(cookies).forEach(item => {
-        cookie += item + '=' + cookies[item] + '; '
-    })
-    return cookie
-}

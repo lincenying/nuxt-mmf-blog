@@ -26,14 +26,16 @@ import { mapGetters } from 'vuex'
 import { showMsg } from '@/utils'
 import { api } from '~api'
 
+// import backendMenu from '@/components/backend-menu.vue'
 import aInput from '@/components/_input.vue'
 
 export default {
     name: 'backend-admin-modify',
-    middleware: 'admin',
     components: {
         aInput
+        // backendMenu
     },
+    middleware: 'admin',
     data() {
         return {
             form: {

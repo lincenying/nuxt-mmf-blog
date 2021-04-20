@@ -30,12 +30,11 @@ import aInput from '@/components/_input.vue'
 
 export default {
     name: 'frontend-user-password',
-    transition: 'slide-left',
-    middleware: 'user',
     components: {
         aInput,
         account
     },
+    middleware: 'user',
     data() {
         return {
             form: {
@@ -45,7 +44,6 @@ export default {
             }
         }
     },
-    mounted() {},
     methods: {
         async modify() {
             if (!this.form.password || !this.form.old_password || !this.form.re_password) {
